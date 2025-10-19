@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quản trị viên - Dashboard</title>
   <link rel="stylesheet" href="css/dashboard-admin.css">
+  <link rel="stylesheet" href="css/mold-dashboard-admin.css">
 </head>
 <body>
   <div class="container">
@@ -24,12 +25,12 @@
 
       <!-- Các Menu -->
       <nav>
-        <a href="#" class="active">
+        <a href="dashboard-admin.html" class="active">
           <img src="images/iconstack.io - (Layout Dashboard)-orange.png" alt="Dashboard icon" class="icon-img">
           Dashboard
         </a>
-        <a href="#">
-          <img src="images/iconstack.io - (Book 2).png" alt="Quản lý sách" class="icon-edit-img">
+        <a href="book-management-admin.html">
+          <img src="images/iconstack.io - (Book 2)-black.png" alt="Quản lý sách" class="icon-edit-img">
           Quản lý sách
         </a>
         <a href="#">
@@ -103,33 +104,39 @@
           </div>
         </div>
 
-        <div class="table-section">
-          <div class="table-header-row">
-            <div class="table-title">Tên độc giả</div>
-            <div class="table-title">Email</div>
-            <div class="table-title">Số điện thoại</div>
-            <div class="table-title">Số sách mượn</div>
-          </div>
-
-          <div class="table-row">
-            <div>Nguyễn Văn A</div>
-            <div>nguyenvana@email.com</div>
-            <div>0321456998</div>
-            <div class="highlight">5</div>
-          </div>
-          <div class="table-row">
-            <div>Trần Thị B</div>
-            <div>tranthib@email.com</div>
-            <div>0256987635</div>
-            <div class="highlight">4</div>
-          </div>
-          <div class="table-row">
-            <div>Lê Văn C</div>
-            <div>levanc@email.com</div>
-            <div>0456829745</div>
-            <div class="highlight">7</div>
-          </div>
+        <div class="table-wrapper">
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>Tên độc giả</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Số sách mượn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nguyễn Văn A</td>
+                <td>nguyenvana@email.com</td>
+                <td>0321456998</td>
+                <td class="highlight">5</td>
+              </tr>
+              <tr>
+                <td>Trần Thị B</td>
+                <td>tranthib@email.com</td>
+                <td>0256987635</td>
+                <td class="highlight">4</td>
+              </tr>
+              <tr>
+                <td>Lê Văn C</td>
+                <td>levanc@email.com</td>
+                <td>0456829745</td>
+                <td class="highlight">7</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </section>
     </main>
   </div>
