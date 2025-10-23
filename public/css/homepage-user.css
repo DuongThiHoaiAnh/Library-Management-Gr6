@@ -80,7 +80,7 @@ body {
 .btn {
   font-size: 22px;
   padding: 16px 36px;
-  border-radius: 50px;
+  border-radius: 15px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -88,7 +88,6 @@ body {
   align-items: center;
   gap: 10px;
   color: #ffffff;
-
 }
 
 /* Nút chính */
@@ -247,6 +246,21 @@ body {
   align-items: center;
 }
 
+.view-all {
+  font-weight: 600;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: #dbd8fc;
+  transition: 0.3s;
+  display: inline-block;
+  color: #6F27F4;
+}
+
+.view-all:hover {
+  transform: translateX(4px);
+}
+
 
 
 
@@ -276,25 +290,11 @@ body {
   margin-top: 5px;
 }
 
-.view-all {
-  font-weight: 600;
-  text-decoration: none;
-  padding: 10px 18px;
-  border-radius: 12px;
-  background: #dbd8fc;
-  transition: 0.3s;
-  display: inline-block;
-  color: #6F27F4;
-}
-
-.view-all:hover {
-  transform: translateX(4px);
-}
-
 .book-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  row-gap: 80px;
+  column-gap: 20px;
 }
 
 .book-card {
@@ -303,6 +303,11 @@ body {
   padding: 20px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 100%;
 }
 
 .book-card:hover {
@@ -311,24 +316,32 @@ body {
 }
 
 .book-img img {
-  width: 225px;
-  height: 320px;
+  width: 100%;
+  height: 340px;
   border-radius: 12px;
   display: block;
   margin: 0px auto;
 }
 
+.tag-status-container {
+  display: flex;
+  justify-content: space-between;  /* Đẩy 2 thẻ về 2 phía */
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
 .book-tag,
 .book-status {
   display: inline-block;
-  margin: 12px 5px 0 0;
-  padding: 8px 20px;          
-  border-radius: 25px;      
-  font-size: 14px;           
-  font-weight: 700;           
-  background: #eae4ff;       
-  color: #22104b;            
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+  padding: 6px 14px;      
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  background: #eae4ff;
+  color: #22104b;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Không cho xuống dòng */
 }
 
 .book-status {
@@ -344,15 +357,22 @@ body {
 
 .book-title {
   font-size: 18px;
-  margin: 15px 0 5px;
+  margin: 12px 0 4px;
   font-weight: 600;
 }
 
-.book-author {
+.book-author,
+.book-year,
+.book-info {
   color: #666;
   font-size: 14px;
+  margin: 2px 0;       
+  line-height: 1.4;   
 }
 
+.book-info {
+  font-size: 13px;
+}
 
 /* Section Background Gradient */
 .cta-section {
@@ -384,19 +404,6 @@ body {
   display: flex;
   justify-content: center;
   gap: 20px;
-}
-
-/* Default Button Style */
-.btn {
-  font-size: 22px;
-  padding: 16px 36px;
-  border-radius: 50px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 /* Button 1: Gradient Orange */

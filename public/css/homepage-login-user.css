@@ -87,6 +87,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #ffffff;
+
 }
 
 /* Nút chính */
@@ -106,6 +108,8 @@ body {
 .secondary-btn:hover {
   background-color: #858585;
 }
+
+
 
 
 
