@@ -26,3 +26,6 @@ Route::get('/signup-successful-user', function () {
     return view('signup-successful-user');
 });
 
+Route::get('/homepage-admin', function () {
+    return view('homepage-admin');
+});

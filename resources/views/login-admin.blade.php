@@ -12,7 +12,7 @@
         Đăng nhập vào tài khoản quản trị viên của bạn để quản lý hệ thống
     </p>
 
-    <form class="login-form" action="{{ url('/admin/login') }}" method="POST">
+    <form class="login-form" action="{{ url('/homepage-admin') }}">
         @csrf
         
         <label for="email">Email</label>
