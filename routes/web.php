@@ -37,3 +37,7 @@ Route::get('/signup-admin', function () {
 Route::get('/signup-successful-admin', function () {
     return view('signup-successful-admin');
 });
+
+Route::get('/dashboard-admin', function () {
+    return view('dashboard-admin');
+});
