@@ -21,3 +21,8 @@ Route::get('/login-user', function () {
 Route::get('/signup-user', function () {
     return view('signup-user');
 });
+
+Route::get('/signup-successful-user', function () {
+    return view('signup-successful-user');
+});
+

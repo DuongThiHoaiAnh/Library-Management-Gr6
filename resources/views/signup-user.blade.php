@@ -83,7 +83,7 @@
                 </div>
 
                 {{-- Submit --}}
-                <button type="submit" class="btn-login">Đăng ký</button>
+                <a href="{{ url('signup-successful-user') }}" class="btn-login">Đăng ký</a>
             </form>
         </main>
 
