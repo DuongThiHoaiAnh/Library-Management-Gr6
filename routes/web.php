@@ -45,3 +45,7 @@ Route::get('/dashboard-admin', function () {
 Route::get('/book-management-admin', function () {
     return view('book-management-admin');
 });
+
+Route::get('/category-management-admin', function () {
+    return view('category-management-admin');
+});

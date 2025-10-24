@@ -1,13 +1,11 @@
-<!-- mold-book-management-admin.blade.php -->
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Quản lý sách - BookManagement</title>
-  <link rel="stylesheet" href="{{ asset('css/book-management-admin.css') }}">
+  <title>Quản lý danh mục - CategoryManagement</title>
+  <link rel="stylesheet" href="{{ asset('css/category-management-admin.css') }}">
   <link rel="stylesheet" href="{{ asset('css/mold-dashboard-admin.css') }}">
 
 </head>
@@ -32,12 +30,12 @@
         <img src="{{ asset('images/iconstack.io - (Layout Dashboard)-black.png') }}" alt="Dashboard icon" class="icon-img">
         Dashboard
       </a>
-      <a href="{{ url('book-management-admin') }}" class="active">
-        <img src="{{ asset('images/iconstack.io - (Book 2)-orange.png') }}" alt="Quản lý sách" class="icon-edit-img">
+      <a href="{{ url('book-management-admin') }}">
+        <img src="{{ asset('images/iconstack.io - (Book 2)-black.png') }}" alt="Quản lý sách" class="icon-edit-img">
         Quản lý sách
       </a>
-      <a href="{{ url('category-management-admin') }}">
-        <img src="{{ asset('images/thu-muc-black.png') }}" alt="Quản lý danh mục" class="icon-img">
+      <a href="{{ url('category-management-admin') }}" class="active">
+        <img src="{{ asset('images/thu-muc-orange.png') }}" alt="Quản lý danh mục" class="icon-img">
         Quản lý danh mục
       </a>
       <a href="{{ url('reader-management-admin') }}">

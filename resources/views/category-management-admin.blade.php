@@ -1,86 +1,21 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý danh mục - CategoryManagement</title>
-  <link rel="stylesheet" href="css/category-management-admin.css">
-  <link rel="stylesheet" href="css/mold-dashboard-admin.css">
-</head>
-<body>
-  <div class="container">
-    <!-- Thanh Menu -->
-    <aside class="sidebar">
+@include('layouts.mold-category-management-admin')
 
-      <!-- Logo Admin -->
-      <div class="sidebar-title">
-        <div class="avatar">
-             <div class="avatar-icon">
-                <img src="images/iconstack.io - (User Lock 01)-admin.png" alt="Quản trị viên logo" />
-             </div>
-        </div>
-        
-      <span class="sidebar-text">Quản trị viên</span>
-      </div>
+<section class="dashboard-content">
+    <div class="dashboard-header">
+        <h1 class="title">Quản lý danh mục</h1>
+        <button class="btn-add-category" id="openAddCategoryModal">+ Thêm danh mục mới</button>
+    </div>
+</section>
 
-      <!-- Các Menu -->
-      <nav>
-        <a href="dashboard-admin.html">
-          <img src="images/iconstack.io - (Layout Dashboard)-black.png" alt="Dashboard icon" class="icon-img">
-          Dashboard
-        </a>
-        <a href="book-management-admin.html">
-          <img src="images/iconstack.io - (Book 2)-black.png" alt="Quản lý sách" class="icon-edit-img">
-          Quản lý sách
-        </a>
-        <a href="category-management-admin.html" class="active">
-          <img src="images/thu-muc-orange.png" alt="Quản lý danh mục" class="icon-img">
-          Quản lý danh mục
-        </a>
-        <a href="reader-management-admin.html">
-          <img src="images/doc-gia-black.png" alt="Quản lý độc giả" class="icon-img">
-          Quản lý độc giả
-        </a>
-        <a href="borrow-return-management-admin.html">
-          <img src="images/iconstack.io - (Exchange 01)-black.png" alt="Quản lý mượn trả" class="icon-img">
-          Quản lý mượn/ trả
-        </a>
-        <a href="finemoney-management-admin.html">
-          <img src="images/tien-phat-black.png" alt="Quản lý phạt" class="icon-img">
-          Quản lý phạt
-        </a>
-      </nav>
-    </aside>
-
-    <main class="main">
-      <header class="header">
-        <div class="header-right">
-          <span class="admin">
-            <img src="images/icon-group-admin-greyblack.png" alt="Admin icon"> Quản trị viên
-          </span>
-          
-          <a href="homepage-admin.html" class="home">Trang chủ</a>
-        </div>
-      </header>
-
-
-      <!-- Main -->
-      <section class="dashboard-content">
-        <div class="dashboard-header">
-          <h1 class="title">Quản lý danh mục</h1>
-          <button class="btn-add-category" id="openAddCategoryModal">+ Thêm danh mục mới</button>
-        </div>
-      </section>
-
-      <!-- Popup Thêm Danh Mục Mới -->
-      <div class="modal-overlay" id="modalOverlay"></div>
-      <div class="modal" id="addCategoryModal">
-        <div class="modal-header">
-          <h2>Thêm danh mục mới</h2>
-          <span class="modal-close" id="closeAddCategoryModal">&times;</span>
-        </div>
-        <div class="modal-body">
-          <form id="addCategoryForm">
+{{-- Popup Thêm danh mục --}}
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal" id="addCategoryModal">
+    <div class="modal-header">
+        <h2>Thêm danh mục mới</h2>
+        <span class="modal-close" id="closeAddCategoryModal">&times;</span>
+    </div>
+    <div class="modal-body">
+        <form id="addCategoryForm">
             <label>Mã danh mục</label>
             <input type="text" id="addMa" placeholder="Nhập mã danh mục">
 
@@ -89,40 +24,35 @@
 
             <label>Mô tả</label>
             <textarea id="addMoTa" placeholder="Nhập mô tả"></textarea>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn-cancel" id="cancelAddCategory">Hủy</button>
+        <button class="btn-submit">Thêm danh mục</button>
+    </div>
+</div>
 
-          </form>
+{{-- Bảng danh mục --}}
+<div class="category-filter-container">
+    <div class="search-box">
+        <img src="{{ asset('images/iconstack.io - (Search)-grey.png') }}">
+        <input type="text" placeholder="Tìm kiếm theo tên danh mục...">
+    </div>
+</div>
 
-          </div>
-          <div class="modal-footer">
-            <button class="btn-cancel" id="cancelAddCategory">Hủy</button>
-            <button class="btn-submit">Thêm danh mục</button>
-          </div>
-      </div>
-
-
-      <!-- Tìm kiếm danh mục -->
-      <div class="category-filter-container">
-        <div class="search-box">
-          <img src="images/iconstack.io - (Search)-grey.png">
-          <input type="text" placeholder="Tìm kiếm theo tên danh mục...">
-        </div>
-    
-      </div>
-
-      <!-- Bảng danh mục -->
-      <div class="table-wrapper">
-        <div class="table-scroll">
+<div class="table-wrapper">
+    <div class="table-scroll">
         <table class="category-table">
-          <thead>
-            <tr>
-              <th>Mã danh mục</th>
-              <th>Tên danh mục</th>
-              <th>Mô tả</th>
-              <th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+            <thead>
+                <tr>
+                    <th>Mã danh mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Mô tả</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
               <td>C001</td>
               <td>Tiểu thuyết</td>
               <td>Các tác phẩm tiểu thuyết trong và ngoài nước</td>
@@ -259,55 +189,48 @@
                 </svg>  
               </td>
             </tr>
-          </tbody>
+            </tbody>
         </table>
-        </div>
-      </div>
+    </div>
+</div>
 
-      <!-- Popup chỉnh sửa danh mục -->
-      <div id="editOverlay" class="modal-overlay"></div>
-
-      <div id="editCategoryModal" class="modal">
-        <div class="modal-header">
-          <h2>Chỉnh sửa danh mục</h2>
-          <span id="closeEditCategoryModal" class="modal-close">&times;</span>
-        </div>
-        <div class="modal-body">
-          <form id="editCategoryForm">
+{{-- Popup chỉnh sửa --}}
+<div id="editOverlay" class="modal-overlay"></div>
+<div id="editCategoryModal" class="modal">
+    <div class="modal-header">
+        <h2>Chỉnh sửa danh mục</h2>
+        <span id="closeEditCategoryModal" class="modal-close">&times;</span>
+    </div>
+    <div class="modal-body">
+        <form id="editCategoryForm">
             <label>Mã danh mục</label>
             <input type="text" id="editMa" disabled>
 
             <label>Tên danh mục</label>
             <input type="text" id="editTen">
-          
+
             <label>Mô tả</label>
             <textarea id="editMoTa"></textarea>
 
             <div class="modal-footer">
-              <button type="button" id="cancelEditCategory" class="btn-cancel">Hủy</button>
-              <button type="submit" class="btn-submit">Cập nhật</button>
+                <button type="button" id="cancelEditCategory" class="btn-cancel">Hủy</button>
+                <button type="submit" class="btn-submit">Cập nhật</button>
             </div>
-          </form>
-        </div>
-      </div>
+        </form>
+    </div>
+</div>
 
+{{-- Popup xác nhận xóa --}}
+<div id="deleteModal" class="modal-delete">
+    <h2>Xóa danh mục</h2>
+    <p id="deleteMessage">Bạn có chắc muốn xóa danh mục này?</p>
+    <div class="modal-footer">
+        <button class="btn-cancel" id="deleteCancelBtn">Hủy</button>
+        <button class="btn-delete" id="confirmDeleteBtn">Xóa</button>
+    </div>
+</div>
 
-      <!-- Popup xác nhận xóa danh mục -->
-      <div id="deleteModal" class="modal-delete">
-        <h2>Xóa danh mục</h2>
-        <p id="deleteMessage">Bạn có chắc muốn xóa danh mục này?</p>
-        <div class="modal-footer">
-          <button class="btn-cancel" id="deleteCancelBtn">Hủy</button>
-          <button class="btn-delete" id="confirmDeleteBtn">Xóa</button>
-        </div>
-      </div>
-
-    </main>
-  </div>
-
-  <script src="js/category-add.js"></script>
-  <script src="js/category-edit.js"></script>
-  <script src="js/category-delete.js"></script>
-  <script src="js/category-filter.js"></script>
-</body>
-</html>
+<script src="{{ asset('js/category-add.js') }}"></script>
+<script src="{{ asset('js/category-edit.js') }}"></script>
+<script src="{{ asset('js/category-delete.js') }}"></script>
+<script src="{{ asset('js/category-filter.js') }}"></script>

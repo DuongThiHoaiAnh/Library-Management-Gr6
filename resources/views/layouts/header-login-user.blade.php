@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập Người dùng</title>
-    <link rel="stylesheet" href="{{ asset('css/login-user.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/header_login-admin.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/footer_login-admin.css') }}" />
-</head>
-<body>
-<div class="page-container">
+
 <header class="header">
     <a href="{{ url('/homepage-login-user') }}" class="logo">
         <div class="logo-icon">
