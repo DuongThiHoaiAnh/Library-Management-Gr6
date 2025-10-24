@@ -30,7 +30,7 @@
     </div>
 
     {{-- Footer --}}
-    @include('admin.layouts.footer-homepage-admin-admin')
+    @include('admin.layouts.footer-homepage-admin')
 
   </div>
   <script src="{{ asset('js/password-toggle.js') }}"></script>
