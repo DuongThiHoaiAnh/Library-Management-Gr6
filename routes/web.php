@@ -41,3 +41,7 @@ Route::get('/signup-successful-admin', function () {
 Route::get('/dashboard-admin', function () {
     return view('dashboard-admin');
 });
+
+Route::get('/book-management-admin', function () {
+    return view('book-management-admin');
+});
