@@ -53,3 +53,7 @@ Route::get('/category-management-admin', function () {
 Route::get('/reader-management-admin', function () {
     return view('reader-management-admin');
 });
+
+Route::get('/borrow-return-management-admin', function () {
+    return view('borrow-return-management-admin');
+});
