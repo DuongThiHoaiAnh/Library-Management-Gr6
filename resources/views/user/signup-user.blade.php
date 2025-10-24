@@ -14,7 +14,7 @@
     <div class="page-container">
 
         {{-- Header --}}
-        @include('layouts.header-signup-user')
+        @include('user.layouts.header-signup-user')
 
         {{-- Sign Up Content --}}
         <main class="login-box">
@@ -83,12 +83,12 @@
                 </div>
 
                 {{-- Submit --}}
-                <a href="{{ url('signup-successful-user') }}" class="btn-login">Đăng ký</a>
+                <a href="{{ url('/user/signup-successful-user') }}" class="btn-login">Đăng ký</a>
             </form>
         </main>
 
         {{-- Footer --}}
-        @include('layouts.footer-signup-user')
+        @include('user.layouts.footer-signup-user')
     </div>
 
     <script defer src="{{ asset('js/password-toggle.js') }}"></script>

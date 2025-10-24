@@ -1,4 +1,4 @@
-@include('layouts.mold-book-management-admin')
+@include('admin.layouts.mold-book-management-admin')
 
 <section class="dashboard-content">
   <div class="dashboard-header">

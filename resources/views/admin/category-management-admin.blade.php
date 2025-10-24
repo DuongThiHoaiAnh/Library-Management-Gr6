@@ -1,4 +1,4 @@
-@include('layouts.mold-category-management-admin')
+@include('admin.layouts.mold-category-management-admin')
 
 <section class="dashboard-content">
     <div class="dashboard-header">

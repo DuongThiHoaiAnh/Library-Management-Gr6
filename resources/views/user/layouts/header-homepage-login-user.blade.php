@@ -15,7 +15,7 @@
     <header class="header">
       <div class="max-header">
         <div class="header-left">
-          <a href="{{ url('homepage-login-user') }}" class="logo">
+          <a href="{{ url('/user/homepage-login-user') }}" class="logo">
             <div class="logo-icon">
               <img src="{{ asset('images/iconstack.io - (Book).png') }}" alt="Thư viện Tri Thức logo" />
             </div>
@@ -23,7 +23,7 @@
           </a>
 
           <nav class="nav">
-            <a href="{{ url('homepage-login-user') }}" class="active">Trang chủ
+            <a href="{{ url('/user/homepage-login-user') }}" class="active">Trang chủ
               <img src="{{ asset('images/Homepage-icon-pirple.png') }}" alt="Trang chủ logo" />
             </a>
             <a href="#">Tra cứu sách
@@ -43,9 +43,9 @@
 
         <div class="header-right">
           <div class="buttons">
-            <a href="{{ url('login-admin') }}" class="btn admin">Quản Trị Viên</a>
-            <a href="{{ url('login-user') }}" class="btn login">Đăng nhập</a>
-            <a href="{{ url('signup-user') }}" class="btn signup">Đăng ký</a>
+            <a href="{{ url('/admin/login-admin') }}" class="btn admin">Quản Trị Viên</a>
+            <a href="{{ url('/user/login-user') }}" class="btn login">Đăng nhập</a>
+            <a href="{{ url('/user/signup-user') }}" class="btn signup">Đăng ký</a>
           </div>
         </div>
       </div>

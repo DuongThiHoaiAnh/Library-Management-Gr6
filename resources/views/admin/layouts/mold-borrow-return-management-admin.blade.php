@@ -24,27 +24,27 @@
 
       <!-- Các Menu -->
       <nav>
-        <a href="{{ url('dashboard-admin') }}">
+        <a href="{{ url('/admin/dashboard-admin') }}">
           <img src="{{ asset('images/iconstack.io - (Layout Dashboard)-black.png') }}" alt="Dashboard icon" class="icon-img">
           Dashboard
         </a>
-        <a href="{{ url('book-management-admin') }}">
+        <a href="{{ url('/admin/book-management-admin') }}">
           <img src="{{ asset('images/iconstack.io - (Book 2)-black.png') }}" alt="Quản lý sách" class="icon-edit-img">
           Quản lý sách
         </a>
-        <a href="{{ url('category-management-admin') }}">
+        <a href="{{ url('/admin/category-management-admin') }}">
           <img src="{{ asset('images/thu-muc-black.png') }}" alt="Quản lý danh mục" class="icon-img">
           Quản lý danh mục
         </a>
-        <a href="{{ url('reader-management-admin') }}">
+        <a href="{{ url('/admin/reader-management-admin') }}">
           <img src="{{ asset('images/doc-gia-black.png') }}" alt="Quản lý độc giả" class="icon-img">
           Quản lý độc giả
         </a>
-        <a href="{{ url('borrow-return-management-admin') }}" class="active">
+        <a href="{{ url('/admin/borrow-return-management-admin') }}" class="active">
           <img src="{{ asset('images/iconstack.io - (Exchange 01)-orange.png') }}" alt="Quản lý mượn trả" class="icon-img">
           Quản lý mượn/ trả
         </a>
-        <a href="{{ url('finemoney-management-admin') }}">
+        <a href="{{ url('/admin/finemoney-management-admin') }}">
           <img src="{{ asset('images/tien-phat-black.png') }}" alt="Quản lý phạt" class="icon-img">
           Quản lý phạt
         </a>

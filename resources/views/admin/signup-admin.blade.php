@@ -12,7 +12,7 @@
   <div class="page-container">
 
     {{-- Header --}}
-    @include('layouts.header-signup-admin')
+    @include('admin.layouts.header-signup-admin')
 
     <main class="login-box">
       <div class="avatar">
@@ -26,7 +26,7 @@
         Tạo tài khoản quản trị viên mới để quản lý hệ thống
       </p>
 
-      <form class="login-form" action="{{ url('signup-successful-admin') }}">
+      <form class="login-form" action="{{ url('/admin/signup-successful-admin') }}">
         @csrf
         <label for="fullname">Họ và tên</label>
         <div class="input-box">
@@ -73,7 +73,7 @@
     </main>
 
     {{-- Footer --}}
-    @include('layouts.footer-signup-admin')
+    @include('admin.layouts.footer-signup-admin')
 
   </div>
   <script src="{{ asset('js/password-toggle.js') }}"></script>

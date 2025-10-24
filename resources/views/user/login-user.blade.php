@@ -15,7 +15,7 @@
     <div class="page-container">
         
         {{-- Header --}}
-        @include('layouts.header-login-user')
+        @include('user.layouts.header-login-user')
 
         {{-- Nội dung đăng nhập --}}
         <main class="login-box">
@@ -56,7 +56,7 @@
         </main>
 
         {{-- Footer --}}
-        @include('layouts.footer-login-user')
+        @include('user.layouts.footer-login-user')
     </div>
 
     {{-- JS --}}

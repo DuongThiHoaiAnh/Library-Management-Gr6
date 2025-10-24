@@ -12,7 +12,7 @@
   <div class="page-container">
 
     {{-- Header --}}
-    @include('layouts.header-signup-successful-admin')
+    @include('admin.layouts.header-signup-successful-admin')
 
     {{-- Success Box --}}
     <div class="success-box">
@@ -26,11 +26,11 @@
         </div>
       </div>
 
-      <a href="{{ url('/homepage-admin') }}" class="btn-comeback">Quay lại trang chủ</a>
+      <a href="{{ url('/admin/homepage-admin') }}" class="btn-comeback">Quay lại trang chủ</a>
     </div>
 
     {{-- Footer --}}
-    @include('layouts.footer-signup-successful-admin')
+    @include('admin.layouts.footer-signup-successful-admin')
 
   </div>
   <script src="{{ asset('js/password-toggle.js') }}"></script>

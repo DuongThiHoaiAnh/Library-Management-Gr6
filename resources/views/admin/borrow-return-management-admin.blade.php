@@ -1,4 +1,4 @@
-@include('layouts.mold-borrow-return-management-admin')
+@include('admin.layouts.mold-borrow-return-management-admin')
 
 <section class="dashboard-content">
   <div class="dashboard-header">

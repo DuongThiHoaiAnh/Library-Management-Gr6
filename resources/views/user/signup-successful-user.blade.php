@@ -12,7 +12,7 @@
 <div class="page-container">
 
   {{-- Header --}}
-  @include('layouts.header-signup-successful-user')
+  @include('user.layouts.header-signup-successful-user')
 
   {{-- Success Message --}}
   <div class="success-box">
@@ -26,11 +26,11 @@
       </div>
     </div>
 
-    <a href="{{ url('homepage-login-user') }}" class="btn-comeback">Quay lại trang chủ</a>
+    <a href="{{ url('user/homepage-login-user') }}" class="btn-comeback">Quay lại trang chủ</a>
   </div>
 
   {{-- Footer --}}
-  @include('layouts.footer-signup-successful-user')
+  @include('user.layouts.footer-signup-successful-user')
 
 </div>
 

@@ -1,4 +1,4 @@
-@include('layouts.mold-reader-management-admin')
+@include('admin.layouts.mold-reader-management-admin')
 
 {{-- Nội dung dashboard chính --}}
 <!-- Nội dung chính -->
@@ -19,7 +19,7 @@
         <div class="cards">
           <div class="card">
             <div class="icon-box green">
-              <img src="images/iconstack.io - (User)-white-admin.png" alt="Readers icon">
+              <img src="{{ asset('images/iconstack.io - (User)-white-admin.png') }}" alt="Readers icon">
             </div>
             <div>
               <p class="label">Độc giả đăng ký</p>
@@ -31,7 +31,7 @@
         <!-- Tìm kiếm -->
         <div class="reader-filter-container">
           <div class="search-box">
-            <img src="images/iconstack.io - (Search)-grey.png">
+            <img src="{{ asset('images/iconstack.io - (Search)-grey.png') }}">
             <input type="text" placeholder="Tìm kiếm theo mã độc giả, tên độc giả, email...">
           </div>
         </div>

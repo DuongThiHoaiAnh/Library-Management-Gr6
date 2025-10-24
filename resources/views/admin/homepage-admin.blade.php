@@ -14,7 +14,7 @@
 <div class="page-container">
 
   {{-- Header --}}
-  @include('layouts.header-homepage-admin')
+  @include('admin.layouts.header-homepage-admin')
 
   {{-- Hero Section --}}
   <section class="hero-bg">
@@ -77,7 +77,7 @@
   </section>
 
   {{-- Footer --}}
-  @include('layouts.footer-homepage-admin')
+  @include('admin.layouts.footer-homepage-admin')
 
 </div>
 </body>

@@ -6,58 +6,58 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/homepage-login-user', function () {
-    return view('homepage-login-user');
+Route::get('user/homepage-login-user', function () {
+    return view('user.homepage-login-user');
 });
 
-Route::get('/login-admin', function () {
-    return view('login-admin');
+Route::get('admin/login-admin', function () {
+    return view('admin.login-admin');
 });
 
-Route::get('/login-user', function () {
-    return view('login-user');
+Route::get('user/login-user', function () {
+    return view('user.login-user');
 });
 
-Route::get('/signup-user', function () {
-    return view('signup-user');
+Route::get('user/signup-user', function () {
+    return view('user.signup-user');
 });
 
-Route::get('/signup-successful-user', function () {
-    return view('signup-successful-user');
+Route::get('user/signup-successful-user', function () {
+    return view('user/signup-successful-user');
 });
 
-Route::get('/homepage-admin', function () {
-    return view('homepage-admin');
+Route::get('admin/homepage-admin', function () {
+    return view('admin.homepage-admin');
 });
 
-Route::get('/signup-admin', function () {
-    return view('signup-admin');
+Route::get('admin/signup-admin', function () {
+    return view('admin.signup-admin');
 });
 
-Route::get('/signup-successful-admin', function () {
-    return view('signup-successful-admin');
+Route::get('admin/signup-successful-admin', function () {
+    return view('admin.signup-successful-admin');
 });
 
-Route::get('/dashboard-admin', function () {
-    return view('dashboard-admin');
+Route::get('admin/dashboard-admin', function () {
+    return view('admin.dashboard-admin');
 });
 
-Route::get('/book-management-admin', function () {
-    return view('book-management-admin');
+Route::get('admin/book-management-admin', function () {
+    return view('admin.book-management-admin');
 });
 
-Route::get('/category-management-admin', function () {
-    return view('category-management-admin');
+Route::get('admin/category-management-admin', function () {
+    return view('admin.category-management-admin');
 });
 
-Route::get('/reader-management-admin', function () {
-    return view('reader-management-admin');
+Route::get('admin/reader-management-admin', function () {
+    return view('admin.reader-management-admin');
 });
 
-Route::get('/borrow-return-management-admin', function () {
-    return view('borrow-return-management-admin');
+Route::get('admin/borrow-return-management-admin', function () {
+    return view('admin.borrow-return-management-admin');
 });
 
-Route::get('/finemoney-management-admin', function () {
-    return view('finemoney-management-admin');
+Route::get('admin/finemoney-management-admin', function () {
+    return view('admin.finemoney-management-admin');
 });

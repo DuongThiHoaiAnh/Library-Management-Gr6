@@ -1,4 +1,4 @@
-@include('layouts.mold-finemoney-management-admin')
+@include('admin.layouts.mold-finemoney-management-admin')
 
 <section class="dashboard-content">
   <div class="dashboard-header">

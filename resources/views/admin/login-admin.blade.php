@@ -1,4 +1,4 @@
-@include('layouts.header-login-admin')
+@include('admin.layouts.header-login-admin')
 
 <main class="login-box">
     <div class="avatar">
@@ -12,7 +12,7 @@
         Đăng nhập vào tài khoản quản trị viên của bạn để quản lý hệ thống
     </p>
 
-    <form class="login-form" action="{{ url('/homepage-admin') }}">
+    <form class="login-form" action="{{ url('/admin/homepage-admin') }}">
         @csrf
         
         <label for="email">Email</label>
@@ -44,4 +44,4 @@
     </form>
 </main>
 
-@include('layouts.footer-login-admin')
+@include('admin.layouts.footer-login-admin')

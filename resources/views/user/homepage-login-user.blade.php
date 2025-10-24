@@ -1,4 +1,4 @@
-@include('layouts.header-homepage-login-user')
+@include('user.layouts.header-homepage-login-user')
 
 <!-- Hero Section -->
 <section class="hero-bg">
@@ -14,7 +14,7 @@
       </svg>
       Tra cứu sách
     </a>
-    <a href="{{ url('signup-user') }}" class="btn secondary-btn">
+    <a href="{{ url('/user/signup-user') }}" class="btn secondary-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
         <circle cx="9" cy="7" r="4"/>
         <path d="M2 21v-1a7 7 0 0 1 14 0v1"/>
@@ -154,7 +154,7 @@
       <p>Theo dõi và quản lý các cuốn sách bạn đang mượn</p>
   
       <div class="cta-buttons">
-        <a href="{{ url('signup-user') }}" class="btn btn-primary">
+        <a href="{{ url('/user/signup-user') }}" class="btn btn-primary">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="7" r="4"/>
             <path d="M2 21v-1a7 7 0 0 1 14 0v1"/>
@@ -174,4 +174,4 @@
       </div>
     </section>
 
-@include('layouts.footer-homepage-login-user')
+@include('user.layouts.footer-homepage-login-user')
