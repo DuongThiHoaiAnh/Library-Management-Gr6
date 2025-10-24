@@ -81,3 +81,9 @@ Route::get('user/help-user', function () {
 Route::get('user/search-book-user', function () {
     return view('user.search-book-user');
 });
+
+Route::prefix('user')->group(function () {
+    Route::view('/trangphat', 'user.trangphat')->name('user.trangphat');
+    Route::view('/content-trangphat', 'user.content-trangphat');
+    Route::view('/content-trangphat-thanhtoan', 'user.content-trangphat-thanhtoan');
+});
