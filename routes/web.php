@@ -65,3 +65,8 @@ Route::get('admin/finemoney-management-admin', function () {
 Route::get('user/homepage-user', function () {
     return view('user.homepage-user');
 });
+
+Route::get('user/info-user', function () {
+    return view('user.info-user');
+});
+
