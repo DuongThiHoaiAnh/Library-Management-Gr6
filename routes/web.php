@@ -74,3 +74,6 @@ Route::get('user/setting-user', function () {
     return view('user.setting-user');
 });
 
+Route::get('user/help-user', function () {
+    return view('user.help-user');
+});
