@@ -93,6 +93,14 @@
 
     {{-- JS --}}
     <script defer src="{{ asset('js/password-toggle.js') }}"></script>
+    <script>
+        document.querySelectorAll('a[href="#"]').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                alert("⚠️ Bạn cần đăng nhập để sử dụng chức năng này!");
+            });
+        });
+    </script>
 </body>
 
 </html>

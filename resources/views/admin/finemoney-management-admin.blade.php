@@ -28,7 +28,8 @@
           <tr data-id="{{ $fine->idPhat }}">
             <td>{{ 'BR'.str_pad($fine->phieuMuonChiTiet->idPhieuMuonChiTiet ?? 0, 3, '0', STR_PAD_LEFT) }}</td>
             <td>{{ $fine->nguoiDung->hoTen}}</td>
-            <td>{{ $fine->phieuMuonChiTiet->sach->tenSach}}</td>
+            <td>{{ $fine->phieuMuonChiTiet?->sach?->tenSach ?? '-' }}</td>
+
             <td class="dayslate">{{ $fine->soNgayTre ?? '-' }}</td>
             <td class="finemoney">
               @if($fine->soNgayTre)

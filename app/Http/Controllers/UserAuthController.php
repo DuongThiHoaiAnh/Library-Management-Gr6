@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserAuthController extends Controller
 {
@@ -41,5 +43,37 @@ class UserAuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('user.login');
+    }
+
+
+    public function showSignupForm()
+    {
+        return view('user.signup-user');
+    }
+
+    public function signup(Request $request)
+    {
+        $request->validate([
+            'fullname' => 'required|string|max:100',
+            'email' => 'required|email|unique:nguoi_dung,email',
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'password' => 'required|string|min:6|confirmed', 
+        ]);
+
+        DB::table('nguoi_dung')->insert([
+            'hoTen' => $request->fullname,
+            'email' => $request->email,
+            'soDienThoai' => $request->phone,
+            'diaChi' => $request->address,
+            'matKhau' => Hash::make($request->password),
+            'vaiTro' => 'reader',
+            'ngayDangKy' => now(),
+            'trangThai' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('user.login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập để sử dụng hệ thống này.');
     }
 }

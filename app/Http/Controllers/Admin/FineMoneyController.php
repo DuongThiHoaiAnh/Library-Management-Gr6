@@ -15,13 +15,15 @@ class FineMoneyController extends Controller
     {
         $fines = Phat::with(['nguoiDung', 'phieuMuonChiTiet.sach'])
             ->where('soNgayTre', '>', 0)
-            ->whereHas('nguoiDung', function($q) {
+            ->whereHas('nguoiDung', function ($q) {
                 $q->where('vaiTro', '<>', 'admin');
             })
+            ->whereHas('phieuMuonChiTiet') 
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        $fines->transform(function($fine) {
+
+        $fines->transform(function ($fine) {
             $fine->readerName = $fine->nguoiDung->hoTen ?? '-';
             $fine->bookName = $fine->phieuMuonChiTiet->sach->tenSach ?? '-';
             $fine->borrowId = $fine->phieuMuonChiTiet->idPhieuMuonChiTiet ?? 0;

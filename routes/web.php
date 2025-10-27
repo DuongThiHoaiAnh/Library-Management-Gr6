@@ -5,8 +5,7 @@ use App\Http\Controllers\AdminAuthController;
 
 
 
-Route::get('user/login-user', fn() => view('user.login-user'));
-Route::get('user/signup-user', fn() => view('user.signup-user'));
+
 Route::get('user/signup-successful-user', fn() => view('user.signup-successful-user'));
 Route::get('user/info-user', fn() => view('user.info-user'));
 Route::get('user/setting-user', fn() => view('user.setting-user'));
@@ -96,11 +95,14 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 use App\Http\Controllers\Admin\BorrowReturnController;
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/borrow-return-management-admin', [BorrowReturnController::class, 'index'])
+
+    Route::get('/borrow-return-management-admin', [BorrowReturnController::class, 'manageBorrowReturns'])
         ->name('admin.borrow-returns');
+
+    Route::post('/approve-return/{idChiTiet}', [BorrowReturnController::class, 'approveReturn'])
+        ->name('admin.approve-return');
 });
-Route::post('/admin/borrow-returns/{id}/update-status', [BorrowReturnController::class, 'updateStatus'])
-    ->name('admin.borrow-returns.update-status');
+
 
 use App\Http\Controllers\Admin\FineMoneyController;
 
@@ -129,7 +131,12 @@ Route::prefix('user')->group(function () {
 
     Route::get('/homepage-user', [UserAuthController::class, 'homepage'])
         ->middleware(['auth', 'role:reader']);
+
+    Route::get('/signup-user', [UserAuthController::class, 'showSignupForm'])->name('user.signup');
+
+    Route::post('/signup-user', [UserAuthController::class, 'signup'])->name('user.signup.submit');
 });
+
 
 use App\Http\Controllers\User\HomepageUserController;
 
@@ -139,3 +146,65 @@ Route::middleware(['auth', 'role:reader'])->group(function () {
 });
 
 
+use App\Http\Controllers\User\SearchBookController;
+
+Route::middleware(['auth', 'role:reader'])->prefix('user')->group(function () {
+    Route::get('/search-book-user', [SearchBookController::class, 'index'])
+        ->name('user.search-book-user');
+});
+
+
+use App\Http\Controllers\User\BorrowController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/borrow-book/{id}', [BorrowController::class, 'borrow'])->name('borrow.book');
+    Route::post('/reserve-book/{id}', [BorrowController::class, 'reserve'])->name('reserve.book');
+});
+
+use App\Http\Controllers\User\NotificationController;
+
+Route::post('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
+
+
+
+Route::prefix('user')->middleware('auth')->group(function () {
+
+    Route::get('/trangmuontra(sachdangmuon)', [BorrowController::class, 'index'])->name('user.trangmuontra(sachdangmuon)');
+
+    Route::get('/content-mtra-sachdangmuon', [BorrowController::class, 'contentSachdangMuon'])
+        ->name('user.content-mtra-sachdangmuon');
+
+    Route::get('/content-mtra-muonsachmoi', [BorrowController::class, 'contentMuonSachMoi'])
+        ->name('user.content-mtra-muonsachmoi');
+
+    Route::post('/borrow-book/{id}', [BorrowController::class, 'borrow'])->name('borrow.book');
+    Route::post('/reserve-book/{id}', [BorrowController::class, 'reserve'])->name('reserve.book');
+
+    Route::post('/return-book-btn/{idChiTiet}', [BorrowController::class, 'returnBook'])->name('user.return-book');
+});
+
+
+use App\Http\Controllers\User\DatChoController;
+
+Route::prefix('user')->middleware(['auth'])->group(function () {
+    Route::get('/datchosach', [DatChoController::class, 'index'])->name('user.datchosach');
+    Route::get('/content-datchosach', [DatChoController::class, 'contentDatChoSach']);
+    Route::get('/content-sachhot', [DatChoController::class, 'contentSachHot']);
+
+    Route::post('/datchosach/reserve/{idSach}', [DatChoController::class, 'reserve']);
+    Route::post('/datchosach/cancel/{idDatCho}', [DatChoController::class, 'cancel']);
+});
+
+
+
+use App\Http\Controllers\User\TrangLichSuMuonTraController;
+
+Route::prefix('user')->middleware(['auth'])->group(function () {
+    Route::get('/tranglichmuontra', [TrangLichSuMuonTraController::class, 'index'])->name('user.tranglichmuontra');
+
+    Route::get('/content-all-lsmn', [TrangLichSuMuonTraController::class, 'contentAll']);
+    Route::get('/content-datra-lsmn', [TrangLichSuMuonTraController::class, 'contentDaTra']);
+    Route::get('/content-dangmuon-lsmn', [TrangLichSuMuonTraController::class, 'contentDangMuon']);
+    Route::get('/content-tratre-lsmn', [TrangLichSuMuonTraController::class, 'contentTraTre']);
+    Route::get('/content-datcho', [TrangLichSuMuonTraController::class, 'contentDatCho']);
+});

@@ -9,14 +9,14 @@
   </p>
 
   <div class="hero-buttons">
-    <a href="#" class="btn primary-btn">
+    <a href="{{ route('user.search-book-user') }}" class="btn primary-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
       Tra cứu sách
     </a>
-    <a href="#" class="btn secondary-btn">
+    <a href="{{ route('user.signup') }}" class="btn secondary-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="7" r="4" />
         <path d="M2 21v-1a7 7 0 0 1 14 0v1" />
@@ -61,7 +61,7 @@
   <p>Hệ thống quản lý thư viện hiện đại, giúp bạn có trải nghiệm tốt nhất</p>
 
   <div class="features-grid">
-    <a href="#" class="feature-link">
+    <a href="{{ route('user.search-book-user') }}" class="feature-link">
       <div class="feature-box">
         <div class="feature-icon">
           <img src="{{ asset('images/iconstack.io - (Search)-thin-white.png') }}" alt="Tra cứu sách" />
@@ -71,7 +71,7 @@
       </div>
     </a>
 
-    <a href="#" class="feature-link">
+    <a href="{{ route('user.trangmuontra(sachdangmuon)') }}" class="feature-link">
       <div class="feature-box">
         <div class="feature-icon">
           <img src="{{ asset('images/iconstack.io - (Book 2)-thin-white.png') }}" alt="Mượn trả sách" />
@@ -81,7 +81,7 @@
       </div>
     </a>
 
-    <a href="#" class="feature-link">
+    <a href="{{ route('user.datchosach') }}" class="feature-link">
       <div class="feature-box">
         <div class="feature-icon">
           <img src="{{ asset('images/iconstack.io - (Bookmark)-thin-white.png') }}" alt="Đặt chỗ" />
@@ -91,7 +91,7 @@
       </div>
     </a>
 
-    <a href="#" class="feature-link">
+    <a href="{{ route('user.tranglichmuontra') }}" class="feature-link">
       <div class="feature-box">
         <div class="feature-icon">
           <img src="{{ asset('images/iconstack.io - (History)-thin-white.png') }}" alt="Lịch sử mượn" />
@@ -110,7 +110,7 @@
       <h2>Sách được yêu thích</h2>
       <p>Những cuốn sách được mượn nhiều nhất trong tháng</p>
     </div>
-    <a href="#" class="view-all">Xem tất cả →</a>
+    <a href="{{ route('user.search-book-user') }}" class="view-all">Xem tất cả →</a>
   </div>
 
   <div class="book-list">
@@ -139,7 +139,7 @@
   <h2>Quản lý Mượn / Trả sách</h2>
   <p>Theo dõi và quản lý các cuốn sách bạn đang mượn</p>
   <div class="cta-buttons">
-    <a href="#" class="btn btn-primary">
+    <a href="{{ route('user.signup') }}" class="btn btn-primary">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="7" r="4" />
         <path d="M2 21v-1a7 7 0 0 1 14 0v1" />
@@ -149,7 +149,7 @@
       Đăng ký miễn phí
     </a>
 
-    <a href="#" class="btn btn-secondary">
+    <a href="{{ route('user.search-book-user') }}" class="btn btn-secondary">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>

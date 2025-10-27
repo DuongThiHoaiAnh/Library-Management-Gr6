@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\PhieuMuonChiTiet;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Models\DatCho;
+use App\Models\PhieuMuon;
+use App\Models\PhieuMuonChiTiet;
+
+
 
 class NguoiDung extends Authenticatable
 {
@@ -12,6 +18,9 @@ class NguoiDung extends Authenticatable
 
     protected $table = 'nguoi_dung';
     protected $primaryKey = 'idNguoiDung';
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         'hoTen',
         'email',
@@ -22,10 +31,11 @@ class NguoiDung extends Authenticatable
         'ngayDangKy',
         'trangThai'
     ];
+
     protected $hidden = ['matKhau'];
     public $timestamps = true;
 
-    public function phieuMuons()
+    public function phieuMuons(): HasMany
     {
         return $this->hasMany(PhieuMuon::class, 'idNguoiDung', 'idNguoiDung');
     }
@@ -35,27 +45,34 @@ class NguoiDung extends Authenticatable
         return $this->hasManyThrough(
             PhieuMuonChiTiet::class,
             PhieuMuon::class,
-            'idNguoiDung',
+            'idNguoiDung', 
             'idPhieuMuon',
-            'idNguoiDung',
-            'idPhieuMuon'
-        );
+            'idNguoiDung', 
+            'idPhieuMuon'  
+        )->with('sach', 'phieuMuon');
     }
 
-    // Tổng số sách đã mượn
-    public function getSoSachDaMuonAttribute()
+    public function getSoSachDaMuonAttribute(): int
     {
         return $this->muonChiTiets()->count();
     }
 
-    // Số sách đang mượn (trạng thái = borrowed)
-    public function getSoSachDangMuonAttribute()
+    public function getSoSachDangMuonAttribute(): int
     {
-        return $this->muonChiTiets()->where('phieu_muon_chi_tiet.ghiChu', 'borrow')->count();
+        return $this->muonChiTiets()->where('trangThaiCT', 'borrowed')->count();
     }
 
     public function getAuthPassword()
     {
         return $this->matKhau;
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<DatCho>
+     */
+    public function datChos(): HasMany
+    {
+        return $this->hasMany(DatCho::class, 'idNguoiDung', 'idNguoiDung')->with('sach');
     }
 }

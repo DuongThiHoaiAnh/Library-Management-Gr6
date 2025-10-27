@@ -32,19 +32,19 @@
               Trang chủ
               <img src="{{ asset('images/Homepage-icon-pirple.png') }}" alt="Trang chủ logo" />
             </a>
-            <a href="#">
+            <a href="{{ route('user.search-book-user') }}">
               Tra cứu sách
               <img src="{{ asset('images/iconstack.io - (Search).png') }}" alt="Tra cứu sách logo" />
             </a>
-            <a href="#">
+            <a href="{{ route('user.trangmuontra(sachdangmuon)') }}">
               Mượn/ Trả sách
               <img src="{{ asset('images/iconstack.io - (Book 2).png') }}" alt="Mượn/ Trả sách logo" />
             </a>
-            <a href="#">
+            <a href="{{ route('user.datchosach') }}">
               Đặt chỗ
               <img src="{{ asset('images/iconstack.io - (Bookmark).png') }}" alt="Đặt chỗ logo" />
             </a>
-            <a href="#">
+            <a href="{{ route('user.tranglichmuontra') }}">
               Lịch sử
               <img src="{{ asset('images/iconstack.io - (History).png') }}" alt="Lịch sử logo" />
             </a>
@@ -102,15 +102,17 @@
             @else
             <ul class="notification-list">
               @foreach($thongBaos as $tb)
-              <li class="notification-item {{ $tb->trangThai === 'unread' ? 'unread' : '' }}">
-                <p>{{ $tb->noiDung }}</p>
-                <span class="time">{{ $tb->thoiGianGui ? \Carbon\Carbon::parse($tb->thoiGianGui)->diffForHumans() : '' }}</span>
+              <li class="notification-item {{ $tb->trangThai === 'unread' ? 'unread' : '' }}" data-id="{{ $tb->idThongBao }}">
+                <p>{!! $tb->noiDung !!}</p>
+                @if($tb->sach)
+                <small>Sách: {{ $tb->sach->tenSach }}</small><br>
+                @endif
+                <span class="time">{{ \Carbon\Carbon::parse($tb->thoiGianGui)->diffForHumans() }}</span>
               </li>
               @endforeach
             </ul>
             @endif
           </div>
-
 
 
           <!-- Tài khoản người dùng -->
@@ -177,7 +179,7 @@
             <!-- Đăng xuất -->
             <form action="{{ route('user.logout') }}" method="POST" class="popup-item-link">
               @csrf
-              <div type="submit" class="popup-item logout">
+              <button type="submit" class="popup-item logout">
                 <div class="icon-popup">
                   <img src="{{ asset('images/iconstack.io - (Log Out)-popup.png') }}" alt="">
                 </div>
@@ -185,10 +187,11 @@
                   <strong>Đăng xuất</strong>
                   <p>Thoát khỏi tài khoản</p>
                 </div>
-              </div>
+              </button>
             </form>
-
           </div>
+
+
         </div>
       </div>
     </header>
@@ -198,6 +201,18 @@
       function toggleNotifications() {
         const popup = document.getElementById("notificationPopup");
         popup.classList.toggle("active");
+
+        document.querySelectorAll('.notification-item.unread').forEach(item => {
+          const id = item.dataset.id;
+          fetch(`/notification/read/${id}`, {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+          }).then(() => {
+            item.classList.remove('unread');
+          });
+        });
       }
     </script>
 
@@ -216,21 +231,36 @@
     </script>
 
     <style>
+      /* popup thông báo */
       .notification-popup {
         display: none;
         position: absolute;
         top: 60px;
         right: 80px;
-        width: 280px;
+        width: 320px;
+        max-height: 450px;
+        overflow-y: auto;
         background: #fff;
         border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        padding: 15px;
         z-index: 999;
+        transition: all 0.3s ease;
       }
 
       .notification-popup.active {
         display: block;
+      }
+
+      .notification-popup .popup-header {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        border-bottom: 1px solid #d1d5db;
+        padding-bottom: 8px;
+        text-align: center;
+        color: #333;
       }
 
       .notification-list {
@@ -239,40 +269,87 @@
         padding: 0;
       }
 
-      .notification-popup .popup-header {
-        font-size: 17px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        border-radius: 12px;
-        border-bottom: 1px solid #94a4ffff;
-        padding-bottom: 8px;
-        text-align: center;
-      }
-
       .notification-item {
-        padding: 8px;
-        border-radius: 12px;
-        border-bottom: 1px solid #fffd9fff;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border-bottom: 1px solid #eee;
         font-size: 14px;
+        line-height: 1.4;
+        background-color: #fff;
+        margin-bottom: 8px;
+        transition: background 0.2s ease;
       }
 
       .notification-item.unread {
-        border-radius: 12px;
-        background-color: #fefff3ff;
+        background-color: #fdf6e3;
         font-weight: 600;
+      }
+
+      .notification-item small {
+        display: block;
+        color: #555;
+        font-size: 12px;
+        margin-top: 2px;
       }
 
       .notification-item .time {
         display: block;
         color: #999;
-        font-size: 12px;
+        font-size: 11px;
         margin-top: 4px;
+      }
+
+      .notification-item:hover {
+        background-color: #f5f5f5;
+        cursor: default;
       }
 
       .no-noti {
         text-align: center;
         color: #777;
-        padding: 12px 0;
+        padding: 20px 0;
+        font-size: 14px;
+      }
+
+
+      /* nút logout */
+      .popup-item.logout {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        cursor: pointer;
+
+        padding-top: 22px;
+        padding-bottom: 22px;
+        border-color: #ffffffff;
+        width: 100%;
+
+      }
+
+      .popup-item.logout .icon-popup img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+
+      .popup-item.logout strong {
+        color: red;
+        font-size: 18px;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .popup-item.logout p {
+        color: red;
+        margin-top: 2px;
+        font-size: 14px;
+      }
+
+      .popup-item.logout:hover {
+        background-color: #ffe1e1ff;
+        transform: translateY(-1px);
       }
     </style>
 

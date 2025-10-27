@@ -23,4 +23,5 @@ class PhieuMuon extends Model
     {
         return $this->hasMany(PhieuMuonChiTiet::class, 'idPhieuMuon', 'idPhieuMuon');
     }
+    
 }

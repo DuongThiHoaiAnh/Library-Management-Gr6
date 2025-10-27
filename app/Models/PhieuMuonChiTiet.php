@@ -19,20 +19,16 @@ class PhieuMuonChiTiet extends Model
         return $this->belongsTo(Sach::class, 'idSach', 'idSach');
     }
 
-
-    // Thuộc tính ảo: lấy trạng thái của sách
     public function getTrangThaiAttribute()
     {
         return $this->trangThaiCT; // hoặc tên cột trạng thái thực tế
     }
 
-    // Thuộc tính ảo: tên sách
     public function getTenSachAttribute()
     {
         return $this->sach ? $this->sach->tenSach : null;
     }
 
-    // Thuộc tính ảo: tên người mượn
     public function getNguoiMuonAttribute()
     {
         return $this->phieuMuon ? $this->phieuMuon->nguoiDung->hoTen : null;
@@ -43,10 +39,16 @@ class PhieuMuonChiTiet extends Model
         return strpos($this->trangThaiCT, 'returned') !== false ? 'returned' : 'borrowed';
     }
 
-    public function scopeOnlyReaders($query)
+    public function scopeBorrowedReaders($query)
     {
-        return $query->whereHas('phieuMuon.nguoiDung', function ($q) {
-            $q->where('vaiTro', 'reader');
-        });
+        return $query->where('ghiChu', 'borrow')
+            ->whereHas('phieuMuon.nguoiDung', function ($q) {
+                $q->where('vaiTro', 'reader');
+            });
+    }
+
+    public function phats()
+    {
+        return $this->hasMany(Phat::class, 'idPhieuMuonChiTiet', 'idPhieuMuonChiTiet');
     }
 }

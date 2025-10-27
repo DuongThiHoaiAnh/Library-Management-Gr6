@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,5 +51,8 @@ class Sach extends Model
         return $this->muonChiTiets()->where('trangThaiCT', 'borrowed')->count();
     }
 
-    
+    public function datChos()
+    {
+        return $this->hasMany(\App\Models\DatCho::class, 'idSach', 'idSach');
+    }
 }

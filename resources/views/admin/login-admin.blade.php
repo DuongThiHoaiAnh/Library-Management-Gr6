@@ -58,3 +58,11 @@
 @include('admin.layouts.footer-homepage-admin')
 
 <script src="{{ asset('js/password-toggle.js') }}"></script>
+<script>
+    document.querySelectorAll('a[href="#"]').forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert("⚠️ Bạn cần đăng nhập hoặc đăng ký để sử dụng chức năng này!");
+      });
+    });
+  </script>

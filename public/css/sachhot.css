@@ -130,8 +130,9 @@
     border-radius: 20px;
 }
 .trang-lch-s-mn-tr .rectangle-8 {
-    width: 120px;
+    width: 150px;
     background-color: #e0e0ff;
+    text-align: center;
 }
 .trang-lch-s-mn-tr .rectangle-25 {
     background-color: #ffdfdf;
@@ -150,11 +151,17 @@
 }
 .trang-lch-s-mn-tr .khung-chu-sach-lch .rectangle-8 .text-wrapper-12 {
     color: blue;
-    width: 120px;
-}
+    width: 140px;
+    font-size: 15px;
+    font-weight: 700;
+    position: relative;
+
+  }
 .trang-lch-s-mn-tr .khung-chu-sach-lch .rectangle-25 .text-wrapper-12 {
     color: red;
     width: 60px;
+    font-size: 15px;
+    font-weight: 700;
     position: relative;
 }
 .trang-lch-s-mn-tr .icon-hot {

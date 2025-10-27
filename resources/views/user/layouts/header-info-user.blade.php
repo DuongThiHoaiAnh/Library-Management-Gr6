@@ -21,7 +21,7 @@
         <a href="{{ url('user/datchosach') }}">Đặt chỗ
           <img src="{{ asset('images/iconstack.io - (Bookmark).png') }}" alt="Đặt chỗ logo" />
         </a>
-        <a href="{{ url('user/tranglichsumuontra') }}">Lịch sử
+        <a href="{{ url('user/tranglichmuontra') }}">Lịch sử
           <img src="{{ asset('images/iconstack.io - (History).png') }}" alt="Lịch sử logo" />
         </a>
       </nav>
