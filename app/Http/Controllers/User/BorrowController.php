@@ -114,9 +114,9 @@ class BorrowController extends Controller
         $dueDate = Carbon::parse($chiTiet->due_date);
         $borrowDate = Carbon::parse($chiTiet->borrow_date);
 
+        // --- Xử lý nếu trả trễ ---
         if ($returnDate->gt($dueDate)) {
-            $soNgayTre = $dueDate->diffInDays($returnDate);
-            $tongSoNgayMuon = $borrowDate->diffInDays($returnDate);
+            $soNgayTre = ceil($dueDate->diffInHours($returnDate) / 24);
             $soTienPhat = $soNgayTre * 5000;
 
             $phat = \App\Models\Phat::create([
@@ -125,7 +125,7 @@ class BorrowController extends Controller
                 'soNgayTre' => $soNgayTre,
                 'soTienPhat' => $soTienPhat,
                 'trangThaiThanhToan' => 'pending',
-                'ghiChu' => "Mượn {$tongSoNgayMuon} ngày, trễ {$soNgayTre} ngày khi trả sách {$chiTiet->sach->tenSach}."
+                'ghiChu' => "Trả sách muộn {$soNgayTre} ngày."
             ]);
 
             Log::info("📘 Tạo phiếu phạt:", $phat->toArray());
@@ -140,9 +140,10 @@ class BorrowController extends Controller
             ]);
         }
 
+        // --- Cập nhật chi tiết phiếu mượn ---
         try {
             $chiTiet->update([
-                'trangThaiCT' => 'pending',
+                'trangThaiCT' => 'pending', 
                 'ghiChu' => 'return',
                 'return_date' => $returnDate,
             ]);
@@ -151,33 +152,39 @@ class BorrowController extends Controller
             return response()->json(['message' => 'Có lỗi xảy ra khi trả sách'], 500);
         }
 
+        $phieuTra = \App\Models\PhieuTra::create([
+            'idPhieuMuonChiTiet' => $chiTiet->idPhieuMuonChiTiet,
+            'idNguoiDung' => $user->idNguoiDung,
+            'idSach' => $chiTiet->idSach,
+            'ngayTra' => $returnDate,
+            'ngayMuon' => $borrowDate,
+            'hanTra' => $dueDate,
+            'trangThai' => 'pending', 
+            'ghiChu' => "Đang chờ xử lý.",
+        ]);
 
-        $phieuTra = \App\Models\PhieuTra::updateOrCreate(
-            [
-                'idPhieuMuonChiTiet' => $chiTiet->idPhieuMuonChiTiet,
-            ],
-            [
-                'idNguoiDung' => $user->idNguoiDung,
-                'ngayTra' => $returnDate,
-                'trangThai' => 'pending',
-                'ghiChu' => "Đang chờ xử lý",
-                'updated_at' => now(),
-            ]
-        );
+        Log::info("📗 Tạo phiếu trả:", $phieuTra->toArray());
 
-
+        // --- Thông báo ---
         ThongBao::create([
             'idNguoiDung' => $user->idNguoiDung,
             'idSach' => $chiTiet->idSach,
             'idPhieuMuon' => $chiTiet->phieuMuon->idPhieuMuon,
             'loaiThongBao' => "Thông báo trả sách",
-            'noiDung' => "Bạn đã gửi yêu cầu trả sách {$chiTiet->sach->tenSach}.",
+            'noiDung' => "Bạn đã gửi yêu cầu trả sách '{$chiTiet->sach->tenSach}'.",
             'thoiGianGui' => now(),
             'trangThai' => 'unread'
         ]);
 
-        return response()->json(['message' => 'Yêu cầu trả sách đã được gửi, vui lòng chờ quản trị viên duyệt.']);
+        return response()->json([
+            'message' => 'Yêu cầu trả sách đã được gửi, vui lòng chờ quản trị viên duyệt.',
+            'data' => [
+                'phieuTra' => $phieuTra,
+                'phat' => $phat ?? null
+            ]
+        ]);
     }
+
 
 
 

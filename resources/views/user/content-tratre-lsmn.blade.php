@@ -109,14 +109,12 @@
                         </div>
                         <div class="text-wrapper-8">{{ $chiTiet->sach->tenSach }}</div>
                         <div class="text-wrapper-9">Tác giả: {{ $chiTiet->sach->tacGia }}</div>
-                        <div class="text-wrapper-10">
-                            Hạn trả: {{ $dueDate->format('d/m/Y') }}
-                        </div>
+                    
                         <div class="text-wrapper-10">
                             Ngày trả: {{ $returnDate->format('d/m/Y') }}
                         </div>
                         <div class="rectangle-12"></div>
-                        <div class="text-wrapper-12 tra-tre">Trả trễ {{ $soNgayTre }} ngày</div>
+                        <div class="text-wrapper-12 tra-tre">Trả trễ</div>
                         <div class="text-wrapper-13">
                             Phạt: {{ number_format($soTienPhat, 0, ',', '.') }}đ
                         </div>

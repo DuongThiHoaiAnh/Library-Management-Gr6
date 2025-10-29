@@ -118,18 +118,11 @@ class TrangLichSuMuonTraController extends Controller
             abort(403, "Người dùng hiện tại không hợp lệ hoặc chưa đăng nhập đúng.");
         }
 
-        if (!($user instanceof NguoiDung)) {
-            abort(403, "Người dùng hiện tại không hợp lệ hoặc chưa đăng nhập đúng.");
-        }
-        $today = Carbon::today();
-
         $muonChiTiets = $user->muonChiTiets()
-            ->where('trangThaiCT', 'approved')
-            ->where('phieu_muon_chi_tiet.ghiChu', 'borrow')
-            ->whereHas('phieuMuon', function ($q) use ($today) {
-                $q->whereDate('hanTra', '<', $today);
-            })
-            ->with('sach')
+            ->where('trangThaiCT', 'approved') 
+            ->whereNotNull('return_date') 
+            ->whereColumn('return_date', '>', 'due_date') 
+            ->with(['sach', 'phieuMuon'])
             ->get();
 
         return view('user.content-tratre-lsmn', compact('muonChiTiets'));
