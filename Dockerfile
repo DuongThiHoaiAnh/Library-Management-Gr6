@@ -1,89 +1,68 @@
-# 1. Base image PHP có sẵn Composer
-FROM php:8.2-fpm
-
-# 2. Cài đặt các thư viện cần thiết cho Laravel
-RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
-
-# 3. Copy Composer từ image composer chính thức
-COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
-
-# 4. Đặt thư mục làm việc
-WORKDIR /var/www/html
-
-# 5. Copy toàn bộ code Laravel vào container
-COPY . .
-
-# 6. Cài dependencies Laravel
-RUN composer install --no-dev --optimize-autoloader
-# ————————————————————————————————
-# 1️⃣ Giai đoạn build PHP dependencies
-# ————————————————————————————————
+# ==========================================
+# 1️⃣ Stage 1: Cài PHP dependencies (Composer)
+# ==========================================
 FROM composer:2.8 AS vendor
 
 WORKDIR /app
 
-# Copy file composer trước để tận dụng cache
+# Dùng cache tốt hơn cho composer
 COPY composer.json composer.lock ./
-
-# Cài dependency PHP
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-# Copy toàn bộ project
+# Copy toàn bộ source và tối ưu autoload (có classmap)
 COPY . .
+RUN composer dump-autoload --optimize
 
-
-# ————————————————————————————————
-# 2️⃣ Giai đoạn build Frontend (nếu có Vite)
-# ————————————————————————————————
+# ==========================================
+# 2️⃣ Stage 2: Build Frontend (Vite nếu có)
+# ==========================================
 FROM node:20 AS frontend
+
 WORKDIR /app
 COPY . .
-RUN npm ci && npm run build || echo "Không có Vite hoặc build lỗi, bỏ qua."
 
+# Cài và build frontend nếu có package.json
+RUN if [ -f package.json ]; then \
+      if [ -f package-lock.json ]; then npm ci --no-audit --no-fund; else npm i --no-audit --no-fund; fi; \
+      npm run build --if-present; \
+    else \
+      echo "Không có frontend để build, bỏ qua."; \
+    fi
 
-# ————————————————————————————————
-# 3️⃣ Giai đoạn chạy Laravel (Production)
-# ————————————————————————————————
-FROM php:8.2-fpm
+# ==========================================
+# 3️⃣ Stage 3: Runtime (artisan serve đọc PORT)
+# ==========================================
+FROM php:8.2-cli
 
-# Cài extension và package cần thiết cho Laravel + Excel
-RUN apt-get update && apt-get install -y \
-    unzip git curl libpng-dev libjpeg-dev libfreetype6-dev libzip-dev zip \
-    && docker-php-ext-install pdo_mysql zip gd \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy code và vendor từ giai đoạn trước
 WORKDIR /var/www/html
-COPY --from=vendor /app ./
+
+# Cài các thư viện OS + PHP extensions
+RUN apt-get update && apt-get install -y \
+    git curl unzip zip libpng-dev libjpeg-dev libfreetype6-dev libzip-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install pdo_mysql gd zip bcmath \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy code + vendor từ stage vendor
+COPY --from=vendor /app /var/www/html
 
 # Copy build frontend (nếu có)
-COPY --from=frontend /app/public/build ./public/build
+COPY --from=frontend /app/public/build /var/www/html/public/build 2>/dev/null || true
 
-# Đảm bảo quyền ghi cho storage và cache
-RUN chmod -R 777 storage bootstrap/cache
+# Quyền ghi cho storage và bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache || true \
+ && chmod -R 775 storage bootstrap/cache || true
 
-# Copy .env mẫu nếu chưa có (Render sẽ override bằng biến môi trường)
-RUN cp .env.example .env || true
+# Thiết lập các biến mặc định (Render sẽ override)
+ENV APP_ENV=production
+ENV PORT=8000
 
-# Tạo key Laravel
-RUN php artisan key:generate || true
-
-# Port mà Laravel sẽ chạy
 EXPOSE 8000
 
-# ————————————————————————————————
-# 4️⃣ Lệnh khởi động chính
-# ————————————————————————————————
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
-
-# 7. Cấp quyền cho storage và cache
-RUN chmod -R 775 storage bootstrap/cache
-
-# 8. Expose cổng 8000 (Laravel serve mặc định)
-EXPOSE 8000
-
-# 9. Lệnh chạy Laravel server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Khởi chạy: generate key nếu chưa có, migrate (bỏ qua lỗi), rồi serve theo PORT
+CMD sh -lc '\
+  if [ -z "${APP_KEY}" ]; then php artisan key:generate --ansi || true; fi && \
+  php artisan storage:link || true && \
+  php artisan migrate --force || true && \
+  php artisan serve --host=0.0.0.0 --port=${PORT:-8000} \
+'
