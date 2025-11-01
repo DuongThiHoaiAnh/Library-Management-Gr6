@@ -3,6 +3,13 @@
 # ==========================================
 FROM composer:2.8 AS vendor
 
+# Cài thêm PHP extension cần thiết trong stage này
+RUN apt-get update && apt-get install -y \
+    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd zip && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Copy composer files trước để tận dụng cache
@@ -14,6 +21,7 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 COPY . .
 
 RUN composer dump-autoload --optimize
+
 
 
 # ==========================================
