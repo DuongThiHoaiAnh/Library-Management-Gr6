@@ -152,7 +152,7 @@ class DatChoController extends Controller
 
         DatCho::where('idNguoiDung', $user->idNguoiDung)
             ->where('idSach', $datCho->idSach)
-            ->delete();
+            ->update(['status' => 'approved']);
 
         return response()->json(['message' => 'Bạn đã hủy đặt chỗ sách thành công!']);
     }

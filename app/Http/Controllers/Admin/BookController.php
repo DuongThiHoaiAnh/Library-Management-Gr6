@@ -132,7 +132,7 @@ class BookController extends Controller
             // Chuẩn hóa tên file
             $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            $safeName = \Str::slug($originalName) . '.' . $extension;
+            $safeName = Str::slug($originalName) . '.' . $extension;
 
             $destination = public_path('images');
             if (!file_exists($destination)) {
