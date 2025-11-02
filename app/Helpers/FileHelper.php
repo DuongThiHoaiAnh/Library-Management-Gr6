@@ -5,31 +5,43 @@ namespace App\Helpers;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 
 class FileHelper
 {
     /**
      * Upload ảnh lên Cloudinary
      *
-     * @param UploadedFile $file
-     * @param string $folder Thư mục trong Cloudinary (ví dụ 'books')
-     * @return string URL public của ảnh
+     * @param UploadedFile|null $file
+     * @param string $folder
+     * @return string|null
      */
-    public static function uploadImageToCloudinary(UploadedFile $file, $folder = 'books')
+    public static function uploadImageToCloudinary(?UploadedFile $file, string $folder = 'books')
     {
-        // Lấy tên file gốc không đuôi
-        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        if (!$file || !$file->isValid()) {
+            Log::warning('❌ FileHelper: Không nhận được file hợp lệ để upload.');
+            return null;
+        }
 
-        // Tạo tên slug, thêm timestamp để tránh trùng
-        $filename = Str::slug($originalName) . '-' . time();
+        try {
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $filename = Str::slug($originalName) . '-' . time();
 
-        // Upload lên Cloudinary
-        $uploadedFileUrl = Cloudinary::upload($file->getRealPath(), [
-            'folder' => $folder,
-            'public_id' => $filename,
-            'overwrite' => true,
-        ])->getSecurePath();
+            $uploaded = Cloudinary::upload($file->getRealPath(), [
+                'folder' => $folder,
+                'public_id' => $filename,
+                'overwrite' => true,
+            ]);
 
-        return $uploadedFileUrl;
+            if (!$uploaded) {
+                Log::error('❌ FileHelper: Cloudinary upload trả về null.');
+                return null;
+            }
+
+            return $uploaded->getSecurePath();
+        } catch (\Exception $e) {
+            Log::error('❌ Lỗi upload Cloudinary: ' . $e->getMessage());
+            return null;
+        }
     }
 }
