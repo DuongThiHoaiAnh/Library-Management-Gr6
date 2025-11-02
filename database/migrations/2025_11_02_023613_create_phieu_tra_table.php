@@ -12,16 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('phieu_tra', function (Blueprint $table) {
-            $table->id('idPhieuTra');
-            $table->unsignedBigInteger('idPhieuMuonChiTiet');
+            $table->bigIncrements('idPhieuTra');
+            $table->unsignedBigInteger('idPhieuMuonChiTiet')->index('phieu_tra_idphieumuonchitiet_foreign');
             $table->date('ngayTra');
             $table->string('trangThaiXuLy', 20)->default('processed');
-            $table->string('ghiChu', 255)->nullable();
+            $table->string('ghiChu')->nullable();
             $table->timestamps();
-
-            $table->foreign('idPhieuMuonChiTiet')->references('idPhieuMuonChiTiet')->on('phieu_muon_chi_tiet')->onUpdate('cascade')->onDelete('restrict');
         });
-
     }
 
     /**
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phieutra');
+        Schema::dropIfExists('phieu_tra');
     }
 };

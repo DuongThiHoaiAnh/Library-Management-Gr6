@@ -9,24 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
-    
-
     public function up(): void
     {
         Schema::create('phieu_muon_chi_tiet', function (Blueprint $table) {
-            $table->id('idPhieuMuonChiTiet');
-            $table->unsignedBigInteger('idPhieuMuon');
-            $table->unsignedBigInteger('idSach');
+            $table->bigIncrements('idPhieuMuonChiTiet');
+            $table->unsignedBigInteger('idPhieuMuon')->index('phieu_muon_chi_tiet_idphieumuon_foreign');
+            $table->unsignedBigInteger('idSach')->index('phieu_muon_chi_tiet_idsach_foreign');
             $table->date('borrow_date')->nullable();
             $table->date('due_date')->nullable();
             $table->date('return_date')->nullable();
             $table->string('trangThaiCT', 20)->default('borrowed');
-            $table->string('ghiChu', 255)->nullable();
+            $table->string('ghiChu')->nullable();
             $table->timestamps();
-
-            $table->foreign('idPhieuMuon')->references('idPhieuMuon')->on('phieu_muon')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idSach')->references('idSach')->on('sach')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

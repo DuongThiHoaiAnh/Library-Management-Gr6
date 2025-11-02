@@ -12,19 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dat_cho', function (Blueprint $table) {
-            $table->id('idDatCho');
-            $table->unsignedBigInteger('idNguoiDung');
-            $table->unsignedBigInteger('idSach');
+            $table->bigIncrements('idDatCho');
+            $table->unsignedBigInteger('idNguoiDung')->index('dat_cho_idnguoidung_foreign');
+            $table->unsignedBigInteger('idSach')->index('dat_cho_idsach_foreign');
             $table->date('ngayDat');
             $table->string('status', 20)->default('waiting');
             $table->unsignedInteger('queueOrder')->default(0);
             $table->date('thoiGianHetHan')->nullable();
             $table->timestamps();
-
-            $table->foreign('idNguoiDung')->references('idNguoiDung')->on('nguoi_dung')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idSach')->references('idSach')->on('sach')->onDelete('cascade')->onUpdate('cascade');
         });
-
     }
 
     /**
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('datcho');
+        Schema::dropIfExists('dat_cho');
     }
 };

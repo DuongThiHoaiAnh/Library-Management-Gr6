@@ -12,20 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sach', function (Blueprint $table) {
-            $table->id('idSach');
+            $table->bigIncrements('idSach');
             $table->string('maSach', 50)->nullable()->index();
             $table->string('tenSach', 200)->index();
             $table->string('tacGia', 200)->nullable();
             $table->year('namXuatBan')->nullable();
-            $table->integer('soLuong')->default(0)->unsigned();
-
-            $table->unsignedBigInteger('idDanhMuc');
+            $table->integer('soLuong')->default(1);
+            $table->unsignedBigInteger('idDanhMuc')->index('sach_iddanhmuc_foreign');
             $table->text('moTa')->nullable();
             $table->string('vitri', 100)->nullable();
+            $table->string('anhBia')->nullable();
             $table->string('trangThai', 20)->default('available');
             $table->timestamps();
-
-            $table->foreign('idDanhMuc')->references('idDanhMuc')->on('danh_muc')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
