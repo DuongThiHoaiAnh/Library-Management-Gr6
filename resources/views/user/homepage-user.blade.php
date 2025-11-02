@@ -122,11 +122,12 @@
       <div class="tag-status-container">
         <span class="book-tag purple">{{ $sach->danhMuc->tenDanhMuc ?? 'Khác' }}</span>
         <span class="book-status">
-          @if ($book->trangThai === 'available')
+          @if ($sach->trangThai === 'available')
           Có sẵn
           @else
           Hết sách
-          @endif</span>
+          @endif
+        </span>
       </div>
       <h3 class="book-title">{{ $sach->tenSach }}</h3>
       <p class="book-author">Tác giả: {{ $sach->tacGia ?? 'Không rõ' }}</p>
