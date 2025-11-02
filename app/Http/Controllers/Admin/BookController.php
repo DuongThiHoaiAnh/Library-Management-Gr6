@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Sach;
 use App\Models\DanhMuc;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -62,7 +62,9 @@ class BookController extends Controller
 
         if ($request->hasFile('anhBia')) {
             $file = $request->file('anhBia');
-            $filename = preg_replace('/\s+/', '-', strtolower($file->getClientOriginalName()));
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = Str::slug($originalName) . '-' . time() . '.' . $extension;
             $file->move(public_path('images'), $filename);
             $book->anhBia = 'images/' . $filename;
         }
@@ -107,10 +109,12 @@ class BookController extends Controller
 
         if ($request->hasFile('anhBia')) {
             $file = $request->file('anhBia');
-            $filename = preg_replace('/\s+/', '-', strtolower($file->getClientOriginalName()));
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = Str::slug($originalName) . '-' . time() . '.' . $extension;
             $file->move(public_path('images'), $filename);
             $book->anhBia = 'images/' . $filename;
-        } else if ($request->has('anhBiaOld')) {
+        } elseif ($request->filled('anhBiaOld')) {
             $book->anhBia = $request->anhBiaOld;
         }
 
