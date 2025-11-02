@@ -30,18 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const formData = new FormData(addBookForm);
 
     const addAnhBia = document.querySelector('#addAnhBia');
-
     if (addAnhBia && addAnhBia.files.length > 0) {
-      const file = addAnhBia.files[0];
-      const allowedExtensions = ['jpg', 'jpeg', 'png'];
-      const fileExt = file.name.split('.').pop().toLowerCase();
-
-      if (!allowedExtensions.includes(fileExt)) {
-        alert('❌ Ảnh bìa chỉ được phép là JPG hoặc PNG.');
-        return;
-      }
-
-      formData.append('anhBia', file); 
+      formData.append('anhBia', addAnhBia.files[0]);
     }
 
     const year = parseInt(formData.get('namXuatBan'));
