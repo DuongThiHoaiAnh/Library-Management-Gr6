@@ -87,7 +87,7 @@
             </p>
 
             <p>
-                Quên mật khẩu? Gửi ngay yêu cầu đến email hoaianh1602@gmail.com
+                Quên mật khẩu? Gửi ngay yêu cầu đến email hoaianh16022005@gmail.com
             </p>
         </main>
 
