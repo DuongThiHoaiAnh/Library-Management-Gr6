@@ -62,17 +62,31 @@ class BookController extends Controller
 
         $book->trangThai = ($request->soLuong == 0) ? 'unavailable' : 'available';
 
-        if ($request->hasFile('anhBia') && $request->file('anhBia')->isValid()) {
-            try {
-                $uploadResult = FileHelper::uploadImageToCloudinary($request->file('anhBia'), 'books');
-                $book->anhBia = $uploadResult ?? null;
-            } catch (\Exception $e) {
-                Log::error("❌ Upload ảnh thất bại: " . $e->getMessage());
-                $book->anhBia = null;
+        if ($request->hasFile('anhBia')) {
+            $file = $request->file('anhBia');
+
+            if (!in_array($file->getMimeType(), ['image/jpeg', 'image/png'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => '❌ Ảnh bìa phải là JPG hoặc PNG'
+                ], 422);
             }
-        } else {
-            $book->anhBia = null;
+
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $safeName = Str::slug($originalName) . '.' . $extension;
+
+            $destination = public_path('images');
+
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+
+            $file->move($destination, $safeName);
+            $book->anhBia = 'images/' . $safeName;
         }
+
+
 
         $book->save();
 
