@@ -56,7 +56,7 @@
             <div class="text-wrapper-9">Tác giả: {{ $datCho->sach->tacGia }}</div>
             <div class="rectangle-10 rectangle-dang-muon"></div>
             <div class="text-wrapper-12 dang-muon">Đã hủy</div>
-            @endif
+            
           </div>
         </div>
         @empty
