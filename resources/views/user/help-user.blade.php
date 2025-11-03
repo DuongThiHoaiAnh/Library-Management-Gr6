@@ -103,10 +103,10 @@
 
   <script>
     const helpContents = {
-      borrow: '<a href="https://youtu.be/Sz_wWzgh-vQ?si=12lEHbb3j6BQORmy" target="_blank">Xem video hướng dẫn mượn sách</a>',
+      borrow: '<a href="https://youtu.be/euT9loeZNUw?si=-yS8f0bigekzQhYT" target="_blank">Xem video hướng dẫn mượn sách</a>',
       account: '<p>Hướng dẫn cập nhật thông tin cá nhân và đổi mật khẩu...</p>',
-      payment: '<a href="https://youtu.be/QcuV8h_I1y0?si=evFkcklPE_1iMNWm" target="_blank">Xem video hướng dẫn thanh toán</a>',
-      contact: '<p><br>Email: support@example.com<br><br>Hotline: 1234 5678<br></p>'
+      payment: '<a href="https://youtu.be/euT9loeZNUw?si=-yS8f0bigekzQhYT" target="_blank">Xem video hướng dẫn thanh toán</a>',
+      contact: '<p><br>Email: hoaianh16022005@example.com<br><br>Hotline: 1234 5678<br></p>'
     };
 
 
