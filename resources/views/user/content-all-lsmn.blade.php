@@ -54,7 +54,7 @@
           <div class="text-wrapper-7">Ngày mượn: {{ \Carbon\Carbon::parse($chiTiet->borrow_date)->format('d/m/Y') }}</div>
           <div class="text-wrapper-8">{{ $chiTiet->sach->tenSach }}</div>
           <div class="text-wrapper-9">Tác giả: {{ $chiTiet->sach->tacGia }}</div>
-          
+
           <div class="text-wrapper-10">Hạn trả: {{ \Carbon\Carbon::parse($chiTiet->due_date)->format('d/m/Y') }}</div>
           <div class="text-wrapper-11">Ngày trả: {{ \Carbon\Carbon::parse($chiTiet->return_date)->format('d/m/Y') }}</div>
           @php
