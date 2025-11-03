@@ -81,7 +81,7 @@ class DatChoController extends Controller
         $alreadyReserved = DB::table('dat_cho')
             ->where('idNguoiDung', $userId)
             ->where('idSach', $idSach)
-            ->whereIn('status', 'active')
+            ->where('status', 'active')
             ->exists();
 
         if ($alreadyReserved) {
