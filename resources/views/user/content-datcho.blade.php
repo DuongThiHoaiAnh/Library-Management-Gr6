@@ -22,7 +22,7 @@
   <div class="rectangle">
     <div class="group-2-choosen">
       <div class="div">
-        {{-- ✅ Đổi liên kết sang route Blade (nếu có) --}}
+
         <a class="group-6" href="{{ url('user/content-all-lsmn') }}">
           <div class="rectangle-6">
             <div class="text-wrapper-5">Lịch sử mượn trả</div>
@@ -62,8 +62,8 @@
             <div class="text-wrapper-12 dang-muon">Đang mượn</div>
             <!-- @elseif($datCho->status === 'active')
             <div class="rectangle-12 rectangle-dang-cho"></div>
-            <div class="text-wrapper-12 dang-cho">Đang chờ</div>
-            @else
+            <div class="text-wrapper-12 dang-cho">Đang chờ</div> -->
+            <!-- @else
             <div class="text-wrapper-10">Có sách: {{ \Carbon\Carbon::parse($datCho->ngayHetHan)->format('d/m/Y') }}</div>
             <div class="rectangle-8 rectangle-het-han"></div>
             <div class="text-wrapper-12 het-han">Hết hạn</div> -->

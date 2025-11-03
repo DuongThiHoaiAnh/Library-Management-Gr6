@@ -76,6 +76,6 @@ class NguoiDung extends Authenticatable
      */
     public function datChos(): HasMany
     {
-        return $this->hasMany(DatCho::class, 'idNguoiDung', 'idNguoiDung')->with('sach');
+        return $this->hasMany(DatCho::class, 'idNguoiDung', 'idNguoiDung');
     }
 }
