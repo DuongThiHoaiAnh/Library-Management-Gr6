@@ -209,10 +209,21 @@ class BorrowController extends Controller
         $user = Auth::user();
         $userId = $user->idNguoiDung;
 
+        $hasUnpaidPhat = \App\Models\Phat::where('idNguoiDung', $userId)
+            ->where('trangThaiThanhToan', '!=', 'paid')
+            ->exists();
+
+        if ($hasUnpaidPhat) {
+            return response()->json([
+                'success' => false,
+                'message' => '❌ Bạn còn tiền phạt chưa duyệt thanh toán, không thể mượn sách mới.'
+            ]);
+        }
+
         $alreadyBorrowed = PhieuMuonChiTiet::whereHas('phieuMuon', function ($q) use ($userId) {
             $q->where('idNguoiDung', $userId);
         })->where('idSach', $idSach)
-            ->whereIn('trangThaiCT', ['pending', 'approved']) 
+            ->whereIn('trangThaiCT', ['pending', 'approved'])
             ->where('ghiChu', 'borrow')
             ->whereNull('return_date')
             ->exists();
