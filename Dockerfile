@@ -39,3 +39,6 @@ CMD sh -lc '\
   php artisan migrate --force || true && \
   php artisan serve --host=0.0.0.0 --port=${PORT:-8000} \
 '
+
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo_pgsql
