@@ -64,7 +64,7 @@ class DashBoardController extends Controller
                 'nguoi_dung.hoTen',
                 'nguoi_dung.email',
                 'nguoi_dung.soDienThoai',
-                DB::raw('COUNT(DISTINCT "phieu_muon_chi_tiet"."idPhieuMuonChiTiet") as soSachDangMuon')
+                DB::raw('COUNT(DISTINCT "phieu_muon_chi_tiet"."idPhieuMuonChiTiet") as "soSachDangMuon" ')
             )
             ->groupBy(
                 'nguoi_dung.idNguoiDung',
