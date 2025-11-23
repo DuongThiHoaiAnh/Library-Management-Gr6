@@ -50,11 +50,11 @@ class DashBoardController extends Controller
         $topBookValues = $topBooks->pluck('timesBorrowed');
 
 
-        $readers = DB::table('nguoi_dung') // bảng không bọc " "
+        $readers = DB::table('nguoi_dung')
             ->leftJoin('phieu_muon', 'nguoi_dung.idNguoiDung', '=', 'phieu_muon.idNguoiDung')
             ->leftJoin('phieu_muon_chi_tiet', function ($join) {
                 $join->on('phieu_muon.idPhieuMuon', '=', 'phieu_muon_chi_tiet.idPhieuMuon')
-                    ->where('"phieu_muon_chi_tiet"."trangThaiCT" = ?', ['approved'])
+                    ->whereRaw('"phieu_muon_chi_tiet"."trangThaiCT" = ?', ['approved'])
                     ->whereRaw('TRIM(LOWER("phieu_muon_chi_tiet"."ghiChu")) = ?', ['borrow'])
                     ->whereNull('phieu_muon_chi_tiet.return_date');
             })
