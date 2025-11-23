@@ -55,7 +55,7 @@ class DashBoardController extends Controller
             ->leftJoin('phieu_muon_chi_tiet', function ($join) {
                 $join->on('phieu_muon.idPhieuMuon', '=', 'phieu_muon_chi_tiet.idPhieuMuon')
                     ->where('phieu_muon_chi_tiet.trangThaiCT', '=', 'approved')
-                    ->whereRaw("TRIM(LOWER(phieu_muon_chi_tiet.ghiChu)) = 'borrow'")
+                    ->whereRaw('TRIM(LOWER("phieu_muon_chi_tiet"."ghiChu")) = ?', ['borrow'])
                     ->whereNull('phieu_muon_chi_tiet.return_date');
             })
             ->where('nguoi_dung.vaiTro', 'reader')
