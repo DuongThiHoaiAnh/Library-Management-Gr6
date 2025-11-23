@@ -50,27 +50,27 @@ class DashBoardController extends Controller
         $topBookValues = $topBooks->pluck('timesBorrowed');
 
 
-        $readers = DB::table('"nguoi_dung"')
-            ->leftJoin('"phieu_muon"', '"nguoi_dung"."idNguoiDung"', '=', '"phieu_muon"."idNguoiDung"')
-            ->leftJoin('"phieu_muon_chi_tiet"', function ($join) {
-                $join->on('"phieu_muon"."idPhieuMuon"', '=', '"phieu_muon_chi_tiet"."idPhieuMuon"')
-                    ->where('"phieu_muon_chi_tiet"."trangThaiCT"', '=', 'approved')
+        $readers = DB::table('nguoi_dung') // bảng không bọc " "
+            ->leftJoin('phieu_muon', 'nguoi_dung.idNguoiDung', '=', 'phieu_muon.idNguoiDung')
+            ->leftJoin('phieu_muon_chi_tiet', function ($join) {
+                $join->on('phieu_muon.idPhieuMuon', '=', 'phieu_muon_chi_tiet.idPhieuMuon')
+                    ->where('"phieu_muon_chi_tiet"."trangThaiCT" = ?', ['approved'])
                     ->whereRaw('TRIM(LOWER("phieu_muon_chi_tiet"."ghiChu")) = ?', ['borrow'])
-                    ->whereNull('"phieu_muon_chi_tiet"."return_date"');
+                    ->whereNull('phieu_muon_chi_tiet.return_date');
             })
-            ->where('"nguoi_dung"."vaiTro"', '=', 'reader')
+            ->where('nguoi_dung.vaiTro', 'reader')
             ->select(
-                '"nguoi_dung"."idNguoiDung"',
-                '"nguoi_dung"."hoTen"',
-                '"nguoi_dung"."email"',
-                '"nguoi_dung"."soDienThoai"',
-                DB::raw('COUNT(DISTINCT "phieu_muon_chi_tiet"."idPhieuMuonChiTiet") as "soSachDangMuon"')
+                'nguoi_dung.idNguoiDung',
+                'nguoi_dung.hoTen',
+                'nguoi_dung.email',
+                'nguoi_dung.soDienThoai',
+                DB::raw('COUNT(DISTINCT "phieu_muon_chi_tiet"."idPhieuMuonChiTiet") as soSachDangMuon')
             )
             ->groupBy(
-                '"nguoi_dung"."idNguoiDung"',
-                '"nguoi_dung"."hoTen"',
-                '"nguoi_dung"."email"',
-                '"nguoi_dung"."soDienThoai"'
+                'nguoi_dung.idNguoiDung',
+                'nguoi_dung.hoTen',
+                'nguoi_dung.email',
+                'nguoi_dung.soDienThoai'
             )
             ->get();
 
