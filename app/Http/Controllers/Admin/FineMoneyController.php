@@ -26,13 +26,13 @@ class FineMoneyController extends Controller
             $keyword = strtolower(trim($request->search));
             $query->where(function ($q) use ($keyword) {
                 $q->whereHas('nguoiDung', function ($q2) use ($keyword) {
-                    $q2->whereRaw('LOWER(hoTen) LIKE ?', ["%{$keyword}%"]);
+                    $q2->whereRaw('LOWER("hoTen") LIKE ?', ["%{$keyword}%"]);
                 })
                 ->orWhereHas('phieuMuonChiTiet.sach', function ($q3) use ($keyword) {
-                    $q3->whereRaw('LOWER(tenSach) LIKE ?', ["%{$keyword}%"]);
+                    $q3->whereRaw('LOWER("tenSach") LIKE ?', ["%{$keyword}%"]);
                 })
                 ->orWhereHas('phieuMuonChiTiet', function ($q4) use ($keyword) {
-                    $q4->whereRaw('LOWER(idPhieuMuonChiTiet) LIKE ?', ["%{$keyword}%"]);
+                    $q4->whereRaw('LOWER("idPhieuMuonChiTiet") LIKE ?', ["%{$keyword}%"]);
                 });
             });
         }

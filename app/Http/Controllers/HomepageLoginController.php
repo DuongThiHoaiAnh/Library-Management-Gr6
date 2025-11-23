@@ -33,7 +33,7 @@ class HomepageLoginController extends Controller
         $today = Carbon::today();
         $luotMuonHomNay = PhieuMuonChiTiet::whereDate('created_at', $today)->count();
 
-        $sachDangMuon = PhieuMuonChiTiet::where('ghiChu', 'borrow')->count();
+        $sachDangMuon = PhieuMuonChiTiet::where("ghiChu", 'borrow')->count();
 
         //sach yeu thich
         $sachYeuThich = Sach::withCount('muonChiTiets')
