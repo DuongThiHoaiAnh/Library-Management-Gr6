@@ -17,7 +17,7 @@ class DashBoardController extends Controller
         $totalReaders = NguoiDung::where('vaiTro', 'reader')->count();
 
         $booksBorrowed = PhieuMuonChiTiet::where('trangThaiCT', 'approved')
-            ->whereRaw("LOWER(TRIM(ghiChu)) = 'borrow'")
+            ->whereRaw('LOWER(TRIM("ghiChu")) = ?', ['borrow'])
             ->whereNull('return_date')
             ->count();
 
@@ -25,7 +25,7 @@ class DashBoardController extends Controller
 
         $booksOverdue = Sach::whereHas('muonChiTiets', function ($q) {
             $q->where('trangThaiCT', 'approved')
-                ->whereRaw("LOWER(TRIM(ghiChu)) = 'borrow'")
+                ->whereRaw('LOWER(TRIM("ghiChu")) = ?', ['borrow'])
                 ->whereNull('return_date')
                 ->where('due_date', '<', now());
         })->count();
@@ -39,15 +39,15 @@ class DashBoardController extends Controller
 
         $topBooks = Sach::withCount(['muonChiTiets as timesBorrowed' => function ($q) {
             $q->where('trangThaiCT', 'approved')
-                ->whereRaw("LOWER(TRIM(ghiChu)) = 'borrow'")
+                ->whereRaw('LOWER(TRIM("ghiChu")) = ?', ['borrow'])
                 ->whereNull('return_date');
         }])
             ->orderByDesc('timesBorrowed')
             ->take(5)
             ->get();
 
-        $topBookLabels = $topBooks->pluck('tenSach'); 
-        $topBookValues = $topBooks->pluck('timesBorrowed'); 
+        $topBookLabels = $topBooks->pluck('tenSach');
+        $topBookValues = $topBooks->pluck('timesBorrowed');
 
 
         $readers = DB::table('nguoi_dung')
