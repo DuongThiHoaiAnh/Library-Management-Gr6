@@ -47,14 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('/admin/category-management-admin', {
+        fetch(`${window.location.origin}/admin/category-management-admin`, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
             },
             body: formData
         })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
             .then(data => {
                 if (data.success) {
                     alert('✅ Thêm danh mục thành công: ' + data.category.tenDanhMuc);
@@ -63,14 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         const newRow = document.createElement('tr');
                         newRow.setAttribute('data-id', data.category.idDanhMuc);
                         newRow.innerHTML = `
-                    <td>${data.category.idDanhMuc}</td>
-                    <td>${data.category.tenDanhMuc}</td>
-                    <td>${data.category.moTa || '-'}</td>
-                    <td class="actions-edit-delete">
-                        <svg class="edit-icon">...</svg>
-                        <svg class="delete-icon">...</svg>
-                    </td>
-                `;
+                <td>${data.category.idDanhMuc}</td>
+                <td>${data.category.tenDanhMuc}</td>
+                <td>${data.category.moTa || '-'}</td>
+                <td class="actions-edit-delete">
+                    <svg class="edit-icon">...</svg>
+                    <svg class="delete-icon">...</svg>
+                </td>
+            `;
                         categoryTableBody.appendChild(newRow);
                     }
 
