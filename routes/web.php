@@ -304,8 +304,19 @@ Route::get('/seed-admin', function () {
     return 'Seeder chạy xong!';
 });
 
-Route::get('/db-test', function () {
-    return config('database.connections.mysql.host') . ' | ' .
-           config('database.connections.mysql.database') . ' | ' .
-           config('database.connections.mysql.username');
+// Route::get('/db-test', function () {
+//     return config('database.connections.mysql.host') . ' | ' .
+//            config('database.connections.mysql.database') . ' | ' .
+//            config('database.connections.mysql.username');
+// });
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/add-migra', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        return "Migration chạy xong!";
+    } catch (\Exception $e) {
+        return "Lỗi khi chạy migration: " . $e->getMessage();
+    }
 });
