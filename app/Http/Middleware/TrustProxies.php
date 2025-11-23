@@ -17,4 +17,7 @@ class TrustProxies
     {
         return $next($request);
     }
+
+    protected $proxies = '*';
+    protected $headers = \Illuminate\Http\Request::HEADER_X_FORWARDED_AWS_ELB;
 }
