@@ -49,11 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetch(`${window.location.origin}/admin/category-management-admin`, {
             method: 'POST',
+            credentials: 'include',
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             },
             body: formData
         })
+
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
