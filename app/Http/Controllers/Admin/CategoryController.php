@@ -27,9 +27,7 @@ class CategoryController extends Controller
             'moTa' => 'nullable|string'
         ]);
 
-        // Tự sinh ID nếu incrementing = false
         $category = DanhMuc::create([
-            'idDanhMuc' => Str::uuid(),
             'tenDanhMuc' => $validated['tenDanhMuc'],
             'moTa' => $validated['moTa'] ?? null
         ]);

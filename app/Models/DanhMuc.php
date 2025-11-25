@@ -12,8 +12,8 @@ class DanhMuc extends Model
 
     protected $table = 'danh_muc';
     protected $primaryKey = 'idDanhMuc';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    // public $incrementing = false;
+    // protected $keyType = 'string';
 
     protected $fillable = ['idDanhMuc', 'tenDanhMuc', 'moTa'];
 
