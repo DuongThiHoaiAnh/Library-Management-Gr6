@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DanhMuc;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -26,23 +27,19 @@ class CategoryController extends Controller
             'moTa' => 'nullable|string'
         ]);
 
-        $category = DB::table('danh_muc')->insertGetId([
+        // Tự sinh ID nếu incrementing = false
+        $category = DanhMuc::create([
+            'idDanhMuc' => Str::uuid(),
             'tenDanhMuc' => $validated['tenDanhMuc'],
-            'moTa' => $validated['moTa'] ?? null,
-            'created_at' => now(),
-            'updated_at' => now()
+            'moTa' => $validated['moTa'] ?? null
         ]);
-
-        $newCategory = DB::table('danh_muc')->where('idDanhMuc', $category)->first();
 
         return response()->json([
             'success' => true,
             'message' => 'Thêm danh mục thành công!',
-            'category' => $newCategory
-            ]);
+            'category' => $category
+        ]);
     }
-    
-
 
     // Cập nhật danh mục
     public function update(Request $request, $id)
