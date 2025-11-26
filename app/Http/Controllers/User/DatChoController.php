@@ -117,7 +117,7 @@ class DatChoController extends Controller
             'thoiGianHetHan' => $expireDate,
             'created_at' => now(),
             'updated_at' => now()
-        ]);
+        ], 'idDatCho');
 
         $sach = Sach::find($idSach);
         ThongBao::create([
