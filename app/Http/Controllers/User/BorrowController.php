@@ -247,7 +247,7 @@ class BorrowController extends Controller
                 'ghiChu' => "Phiếu mượn của {$user->hoTen}",
                 'created_at' => now(),
                 'updated_at' => now()
-            ]);
+            ], 'idPhieuMuon');  
 
             DB::table('phieu_muon_chi_tiet')->insert([
                 'idPhieuMuon' => $phieuMuonId,

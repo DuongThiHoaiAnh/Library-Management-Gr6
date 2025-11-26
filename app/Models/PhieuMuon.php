@@ -9,6 +9,16 @@ class PhieuMuon extends Model
     protected $table = 'phieu_muon';
     protected $primaryKey = 'idPhieuMuon';
 
+    public $incrementing = true;
+    protected $keyType = 'int';
+    protected $fillable = [
+        'idNguoiDung',
+        'ngayMuon',
+        'hanTra',
+        'trangThai',
+        'ghiChu',
+    ];
+
     public function nguoiDung()
     {
         return $this->belongsTo(NguoiDung::class, 'idNguoiDung', 'idNguoiDung');
@@ -23,5 +33,4 @@ class PhieuMuon extends Model
     {
         return $this->hasMany(PhieuMuonChiTiet::class, 'idPhieuMuon', 'idPhieuMuon');
     }
-    
 }
