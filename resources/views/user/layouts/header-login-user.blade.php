@@ -1,6 +1,6 @@
 
 <header class="header">
-    <a href="{{ url('/homepage-login-user') }}" class="logo">
+    <a href="{{ url('/user/homepage-login-user') }}" class="logo">
         <div class="logo-icon">
             <img src="{{ asset('images/iconstack.io - (Book).png') }}" alt="Thư viện Tri Thức logo" />
         </div>
