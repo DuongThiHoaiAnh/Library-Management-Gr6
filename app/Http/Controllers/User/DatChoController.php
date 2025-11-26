@@ -51,7 +51,7 @@ class DatChoController extends Controller
         $sachsHot = Sach::with('danhMuc')
             ->withCount(['datChos as dat_chos_count' => function ($query) {
                 $query->whereIn('status', ['active'])
-                    ->select(DB::raw('count(distinct idNguoiDung)'));
+                    ->select(DB::raw('count(distinct "idNguoiDung")'));
             }])
             ->where('soLuong', 0)
             ->orderByDesc('dat_chos_count')
@@ -62,7 +62,7 @@ class DatChoController extends Controller
             $sachsHot = Sach::with('danhMuc')
                 ->withCount(['datChos as dat_chos_count' => function ($query) {
                     $query->whereIn('status', ['active'])
-                        ->select(DB::raw('count(distinct idNguoiDung)'));
+                        ->select(DB::raw('count(distinct "idNguoiDung")'));
                 }])
                 ->where('soLuong', 0)
                 ->get();
